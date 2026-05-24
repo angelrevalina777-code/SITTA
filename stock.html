@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Stok Bahan Ajar - SITTA UT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+
+    <!--  NAVIGASI  --> 
+<nav class="main-nav">
+    <!-- Gabungan Logo & Tulisan sebagai Link Beranda -->
+    <a href="dashboard.html" class="nav-brand-container">
+        <div class="nav-brand">
+            <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+            <div class="brand-text">
+                <span>SITTA UT</span>
+            </div>
+        </div>
+    </a>
+
+    <!-- Navigasi Menu Rata Kanan -->
+    <div class="nav-links">
+        <a href="stock.html" class="nav-item">Informasi Bahan Ajar</a>
+        <a href="tracking.html" class="nav-item">Tracking Pengiriman</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Laporan ▾</a>
+            <div class="dropdown-content">
+                <a href="#">Monitoring Progress DO Bahan Ajar</a>
+                <a href="#">Rekap Bahan Ajar</a>
+            </div>
+        </div>
+
+        <a href="histori.html" class="nav-item">Histori Transaksi Bahan Ajar</a>
+        <a href="index.html" class="logout-link">Keluar</a>
+    </div>
+</nav>
+
+<div class="dashboard-container">
+        
+        <!-- Area Input & Highlight -->
+        <div class="content-card">
+            <h1>Informasi Stok Bahan Ajar</h1>
+            <p class="subtitle">Data ditampilkan secara dinamis untuk memudahkan pengecekan stok gudang</p>
+
+        <!-- Area Input & Highlight -->
+        <div class="search-container">
+            <form id="inventoryForm">
+                <div class="grid-inputs">
+                    <div class="input-group">
+                        <input type="text" id="locCode" placeholder="Kode Lokasi">
+                        <span id="errLoc" class="error-msg">Wajib diisi</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="itemCode" placeholder="Kode Barang">
+                        <span id="errItem" class="error-msg">Wajib diisi</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text"
+                                v-model="searchNama"
+                                placeholder="Nama Barang">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="itemType" placeholder="Jenis Barang">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="edition" placeholder="Edisi">
+                    </div>
+                </div>
+
+                <div class="form-stok">
+            <button class="btn-search">Cari</button>  
+                </form>
+
+<div class="input-group">
+
+    <select v-model="selectedUPBJJ">
+
+        <option value="">Semua UPBJJ</option>
+
+        <option v-for="u in upbjjList"
+                :key="u">
+
+            {{ u }}
+
+        </option>
+
+    </select>
+
+</div>
+
+<div class="input-group" v-if="selectedUPBJJ">
+
+    <select v-model="selectedKategori">
+
+        <option value="">Semua Kategori</option>
+
+        <option v-for="k in kategoriList"
+                :key="k">
+
+            {{ k }}
+
+        </option>
+
+    </select>
+
+</div>
+
+        <!-- Tabel Stok Lengkap sesuai Screenshot (4258) -->
+        <div class="table-container" style="margin-top: 30px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Sampul</th>
+                        <th>Kode Lokasi</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Jenis</th>
+                        <th>Edisi</th>
+                        <th>Stok</th>
+                    </tr>
+                </thead>
+                <tbody id="mainTableBody">
+                    <tr>
+                        <td>1</td>
+                        <td><img src="img/pengantar_komunikasi.jpg" class="img-table" 
+                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku1'"></td>
+                        <td>0TMP01</td>
+                        <td>ASIP4301</td>
+                        <td>Pengantar Ilmu Komunikasi</td>
+                        <td>BMP</td>
+                        <td>2</td>
+                        <td>548</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><img src="img/manajemen_keuangan.jpg" class="img-table" 
+                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku2'"></td>
+                        <td>0JKT01</td>
+                        <td>EKMA4216</td>
+                        <td>Manajemen Keuangan</td>
+                        <td>BMP</td>
+                        <td>3</td>
+                        <td>392</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><img src="img/kepemimpinan.jpg" class="img-table" 
+                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku3'"></td>
+                        <td>0SBY02</td>
+                        <td>EKMA4310</td>
+                        <td>Kepemimpinan</td>
+                        <td>BMP</td>
+                        <td>1</td>
+                        <td>278</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><img src="img/mikrobiologi.jpg" class="img-table" 
+                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku4'"></td>
+                        <td>0MLG01</td>
+                        <td>BIOL4211</td>
+                        <td>Mikrobiologi Dasar</td>
+                        <td>BMP</td>
+                        <td>2</td>
+                        <td>165</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><img src="img/paud_perkembangan.jpeg" class="img-table" 
+                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku5'"></td>
+                        <td>0UPBJJBDG</td>
+                        <td>PAUD4401</td>
+                        <td>Perkembangan Anak Usia Dini</td>
+                        <td>BMP</td>
+                        <td>4</td>
+                        <td>204</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<div class="add-stock-container">
+    <h3>Tambah Stok Bahan Ajar</h3>
+    <!-- Area Upload Foto -->
+    <div class="upload-area">
+        <p>Klik atau Seret Foto Sampul ke Sini</p>
+        <input type="file" id="upload-foto" hidden>
+    </div>
+    <!-- Form Input Sesuai Gambar -->
+            <div class="form-stok">
+                <div class="input-row">
+                    <input type="text" placeholder="Kode Lokasi">
+                    <input type="text" placeholder="Kode Barang">
+                    <input type="text" placeholder="Nama Barang">
+                    <input type="text" placeholder="Jenis">
+                    <input type="text" placeholder="Edisi">
+                </div>
+                <div class="input-row" style="margin-top: 15px;">
+                    <input type="number" placeholder="Stok">
+                    <button class="btn-tambah">Tambah</button>
+                </div>
+            </div>
+
+
+<!-- FILTER STOK-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.getElementById('inventoryForm');
+        const tableBody = document.getElementById('mainTableBody');
+
+    // Cek apakah elemen form dan tabel ada di halaman ini
+    if (searchForm && tableBody) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Ambil nilai dari semua kotak input
+            const fLoc = document.getElementById('locCode').value.toLowerCase().trim();
+            const fItem = document.getElementById('itemCode').value.toLowerCase().trim();
+            const fName = document.getElementById('itemName').value.toLowerCase().trim();
+            const fType = document.getElementById('itemType').value.toLowerCase().trim();
+            const fEdit = document.getElementById('edition').value.toLowerCase().trim();
+
+            // 2. Ambil semua baris (tr) yang ada di dalam tbody
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                
+                // Pastikan baris memiliki data (bukan baris kosong)
+                if (cells.length >= 7) {
+                    // Ambil teks dari masing-masing kolom (sesuai urutan di tabel Anda)
+                    const txtLoc  = cells[2].textContent.toLowerCase().trim(); // Kolom Kode Lokasi
+                    const txtItem = cells[3].textContent.toLowerCase().trim(); // Kolom Kode Barang
+                    const txtName = cells[4].textContent.toLowerCase().trim(); // Kolom Nama Barang
+                    const txtType = cells[5].textContent.toLowerCase().trim(); // Kolom Jenis
+                    const txtEdit = cells[6].textContent.toLowerCase().trim(); // Kolom Edisi
+
+                    // 3. Logika Filter: Jika input kosong, dianggap cocok. 
+                    // Jika diisi, harus mengandung kata tersebut (includes).
+                    const isMatch = (fLoc === ""  || txtLoc.includes(fLoc)) &&
+                                    (fItem === "" || txtItem.includes(fItem)) &&
+                                    (fName === "" || txtName.includes(fName)) &&
+                                    (fType === "" || txtType.includes(fType)) &&
+                                    (fEdit === "" || txtEdit.includes(fEdit));
+
+                    // 4. Tampilkan jika cocok, sembunyikan jika tidak
+                    if (isMatch) {
+                        row.style.display = ""; 
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            }
+        });
+    } else {
+        console.error("Elemen 'inventoryForm' atau 'mainTableBody' tidak ditemukan!");
+    }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="js/dataBahanAjar.js"></script>
+<script src="js/stok-app.js"></script>
+
+</body>
+</html>

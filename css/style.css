@@ -1,0 +1,928 @@
+/* --- INDEX Styles --- */
+:root {
+    --ut-blue: #1e60a5;
+    --ut-yellow: #fbc02d;
+    --text-dark: #2c3e50;
+    --text-muted: #7f8c8d;
+    --white: #ffffff;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body.login-body {
+    /* 1. Masukkan path/lokasi foto Anda */
+        background-image: url("../img/Light.jpg"); 
+    
+    /* 2. Pastikan foto menutupi seluruh layar dengan rapi */
+        background-size: cover; 
+    
+    /* 3. Posisi foto selalu di tengah */
+        background-position: center; 
+    
+    /* 4. Foto tidak berulang jika layar sangat lebar */
+        background-repeat: no-repeat; 
+    
+    /* 5. Membuat background tetap diam saat konten di-scroll */
+        background-attachment: fixed; 
+    
+    /* Tambahan agar layout tetap di tengah */
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Font Login */
+    #halaman-login * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Kartu Login */
+    #halaman-login .login-card {
+        background: white;
+        padding: 25px 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        width: 90%;
+        max-width: 340px; /* Ukuran lebar maksimal yang ideal */
+        text-align: center;
+        z-index: 10;
+    }
+
+    /* Logo Lingkaran */
+    #halaman-login .ut-circle img {
+        width: 100px; 
+        height: auto;
+    }
+
+    /* Header Text */
+    #halaman-login .header-text h1 {
+        font-size: 20px;
+        color: var(--text-dark);
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    #halaman-login .header-text p {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+    }
+
+    /* Form Styling */
+    #halaman-login .input-group {
+        text-align: left;
+        margin-bottom: 12px;
+    }
+
+    #halaman-login .input-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--text-dark);
+    }
+
+    #halaman-login .input-group input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #dcdde1;
+        border-radius: 8px;
+        outline: none;
+        background-color: #f9f9f9;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+    #halaman-login .input-group input:focus {
+        border-color: var(--ut-blue);
+        background-color: #fff;
+        box-shadow: 0 0 8px rgba(30, 96, 165, 0.2);
+    }
+
+    /* Tombol Login */
+    #halaman-login .btn-login {
+        width: 100%;
+        padding: 11px;
+        background-color: var(--ut-yellow);
+        color: #1a237e;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    #halaman-login .btn-login:hover {
+        background-color: #f3cd35;
+        transform: translateY(-1px);
+    }
+
+    /* Footer Links (Lupa Password & Daftar) */
+    #halaman-login .footer-links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        font-size: 12px;
+    }
+
+    #halaman-login .footer-links a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    #halaman-login .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* --- Pop-Up Lupa Password & Daftar --- */
+    .swal2-popup {
+        width: 450px !important;      /* Lebar kotak pop-up yang ideal */
+        padding: 30px !important;     /* Ruang napas di dalam kotak */
+        border-radius: 20px !important; /* Sudut kotak yang lebih tumpul/halus */
+    }
+
+    .swal2-icon { /* Ukuran Lingkaran Icon (Tanda Seru/Tanya) */
+        width: 80px !important;       /* Ukuran lingkaran icon */
+        height: 80px !important;      /* Harus sama dengan width agar bulat sempurna */
+        margin: 20px auto !important; /* Menaruh tepat di tengah atas */
+        border-width: 3px !important; /* Ketebalan garis lingkaran */
+    }
+
+    .swal2-icon .swal2-icon-content { /* Ukuran Font Simbol di dalam Lingkaran */
+        font-size: 50px !important;   /* Memperbesar tanda 'i' atau '?' agar jelas */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .swal2-title { /* Ukuran Judul (Lupa Password / Buat Akun) */
+        font-size: 22px !important;   /* Ukuran judul yang tegas */
+        font-weight: 700 !important;
+        color: #444 !important;
+    }
+
+    .swal2-html-container { /* Ukuran Teks Penjelasan */
+        font-size: 15px !important;   /* Ukuran teks paragraf agar mudah dibaca */
+        line-height: 1.6 !important;  /* Jarak antar baris teks agar tidak rapat */
+        color: #666 !important;
+    }
+
+    .swal2-confirm { /* Ukuran Tombol Tutup / OK */
+        padding: 12px 40px !important; /* Tombol dibuat lebih panjang ke samping */
+        font-size: 15px !important;
+        border-radius: 10px !important;
+        margin-top: 15px !important;
+    }
+
+    .swal2-confirm:hover {
+        filter: brightness(1.1); /* Tombol jadi lebih cerah */
+        transform: translateY(-2px); /* Tombol sedikit naik ke atas */
+        transition: 0.2s;        /* Transisi halus */
+    }
+
+
+    /* Pop-up Login berhasil dan Login Gagal */
+    .my-rounded-popup { /* Container/Kotak Pop-up utama */
+        border-radius: 15px !important;  /* kelengkungan sudut kotak agar tidak kaku/tajam */
+        padding: 2rem !important;        /* jarak antara tepi kotak dengan konten di dalamnya */
+    }
+
+    .my-rounded-popup .swal2-title { /* Bagian Judul (contoh: "Login Berhasil!") */
+        font-size: 26px !important;      /* ukuran huruf judul agar terlihat besar dan jelas */
+        font-weight: 700 !important;     /* Membuat huruf judul menjadi tebal (bold) */
+        color: #444 !important;        /* warna abu-abu gelap yang elegan pada teks judul */
+        margin-bottom: 10px !important;  /* jarak antara judul dengan teks penjelasan di bawahnya */
+    }
+
+    .my-rounded-popup .swal2-html-container { /* Bagian Teks Penjelasan (contoh: "Selamat datang, Admin SITTA!") */
+        font-size: 16px !important;      /* ukuran huruf isi pesan agar nyaman dibaca */
+        color: #666 !important;        /* warna abu-abu yang lebih lembut untuk teks penjelasan */
+        margin-bottom: 20px !important;  /* jarak antara teks penjelasan dengan tombol di bawahnya */
+    }
+
+    .my-confirm-btn { /* Bagian Tombol (contoh: "Lanjutkan" atau "OK") */
+        padding: 10px 35px !important;  /* ukuran tombol (10px tinggi, 35px lebar ke samping) */
+        font-size: 16px !important;     /* ukuran huruf di dalam tombol */
+        font-weight: 600 !important;    /* huruf di dalam tombol agak tebal */
+        border-radius: 8px !important;  /* kelengkungan sudut pada tombol agar senada dengan kotak pop-up */
+    }
+
+    my-confirm-btn:hover {
+        filter: brightness(1.1); /* Tombol jadi lebih cerah */
+        transform: scale(1.05);  /* Tombol sedikit membesar */
+        transition: 0.2s;        /* Transisi halus */
+    }
+
+
+    /* Akun Demo Box */
+    #halaman-login .demo-box {
+        margin-top: 20px;
+        background-color: #ebf3fb;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: left;
+        border-left: 4px solid var(--ut-blue);
+    }
+
+    #halaman-login .demo-box span {
+        font-weight: 700;
+        font-size: 11px;
+        color: var(--text-dark);
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    #halaman-login .demo-box p {
+        font-size: 11px;
+        color: #576574;
+        margin: 0;
+    }
+
+
+
+
+
+/* --- DASHBOARD Styles --- */
+    /* Container Link Brand */
+    .nav-brand-container {
+        text-decoration: none; /* Hilangkan garis bawah link */
+        display: block;
+        transition: all 0.3s ease; /* Durasi efek halus */
+    }
+
+    /* Efek "Terangkat" & Membesar Bersamaan */
+    .nav-brand-container:hover {
+        transform: translateY(-3px) scale(1.03); /* Naik ke atas 3px dan membesar sedikit */
+        filter: brightness(1.1); /* Sedikit lebih cerah saat disentuh */
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-logo {
+        height: 60px;
+    }
+
+    .brand-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+        color: #003366; /* Warna biru tua UT */
+        filter: brightness(1.1); /* Sedikit lebih cerah saat disentuh */
+    }
+
+    .brand-text span {
+        font-weight: 800;
+        font-size: 2.0rem;
+    }
+
+    /* Layout Navigasi Utama */
+    .main-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ffcc00; /* Kuning UT */
+        padding: 10px 5%;
+        border-bottom: 4px solid #0055aa;
+    }
+
+    /* --- Navigasi Kanan Tetap Rapi --- */
+    .nav-links {
+        display: flex;
+        align-items: center; /* Kunci agar semua menu sejajar vertikal di tengah */
+        gap: 15px;           /* Jarak antar navigasi diperlebar sedikit agar lega */
+    }
+
+    .nav-item, .dropbtn {
+        text-decoration: none;
+        color: #003366;
+        font-weight: 700;
+        font-size: 0.9rem;  /* Font sedikit diperbesar agar mudah dibaca */
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+    }
+
+    /* --- Container Dasar Dropdown --- */
+    .dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%; /* Mengikuti tinggi navbar */
+    }
+
+    /* --- Tombol Utama Laporan --- */
+    .dropbtn {
+        padding: 10px 15px;  /* Padding dikecilkan agar sejajar dengan navigasi lain */
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 5px;  /* Sedikit melengkung saat di-hover merah */
+    }
+
+    .arrow {
+        font-size: 0.9rem;   /* Ukuran panah disesuaikan */
+        margin-left: 6px;
+        vertical-align: middle;
+    }
+
+    /* Efek Merah saat Laporan disentuh */
+    .dropdown:hover .dropbtn {
+        background-color: #ef4444; 
+        color: white !important;
+    }
+
+    /* --- Kotak Isi Dropdown --- */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 250px; 
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+        z-index: 1000;
+        top: 100%; /* Muncul tepat di bawah menu */
+        left: 0;
+        border-radius: 0 0 8px 8px; /* Lengkungan halus di bawah kotak */
+        overflow: hidden;
+    }
+
+    .dropdown-content a {
+        color: #333333 !important;
+        padding: 12px 20px;
+        text-decoration: none;
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #f8f9fa;
+        transition: 0.2s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #cadff4;
+        color: #ef4444 /* Warna teks jadi merah saat hover di list */
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* --- Navigasi Selain Laporan & Keluar --- */
+    .nav-item {
+        text-decoration: none; /* Default: tidak ada garis */
+        color: #003366;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 10px 0;
+        transition: color 0.3s ease;
+    }
+
+    /* Efek Hover: Tambah Garis Bawah & Warna Merah */
+    .nav-item:hover {
+        color: #003366; 
+        text-decoration: underline !important; /* Menambah garis bawah saat kursor menempel */
+        text-underline-offset: 5px; /* Opsional: memberi jarak antara teks dan garis agar lebih rapi */
+    }
+
+    /* --- Khusus Laporan (Dropdown) --- */
+    .dropdown:hover .dropbtn {
+        background-color: #003366;
+        color: white !important;
+        text-decoration: none; /* Laporan biasanya tidak pakai underline karena sudah ada box merah */
+    }
+
+    /* --- Tombol Keluar --- */
+    .logout-link:hover {
+        background-color: #003366;
+        text-decoration: none; /* Tombol (button style) biasanya tidak pakai underline */
+    }
+
+    /* --- Tombol Keluar --- */
+    .logout-link {
+        background-color: #ef4444;
+        color: white ;
+        padding: 10px 25px;  /* Menyeimbangkan tinggi dengan teks navigasi */
+        border-radius: 8px;  /* Membuat sudut tombol keluar lebih tumpul (seperti gambar) */
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .logout-link:hover {
+        background-color: #dc2626; /* Merah sedikit lebih gelap saat hover */
+        transform: translateY(-2px); /* Efek melayang sedikit */
+    }
+
+
+    /* Hero Section / Banner */
+    .welcome-banner {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(41, 128, 185, 0.2);
+    }
+
+    .badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+
+    .stats-box {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 20px 40px;
+        border-radius: 15px;
+        text-align: center;
+        backdrop-filter: blur(5px);
+    }
+
+    .stats-number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .stats-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    /* Grid Kartu */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .menu-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: 0.3s;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .menu-card h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .menu-card p {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin-bottom: 20px;
+    }
+
+    .btn-action {
+        display: inline-block;
+        background: #1e60a5;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    body {
+        /* Gunakan path yang sama dengan halaman login */
+        /* Pastikan jumlah titik (..) sesuai dengan struktur folder Anda */
+        background-image: url('../img/Light.jpg');
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* Agar foto tidak ikut bergeser saat scroll */
+        
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    /* Agar konten dashboard tetap terbaca jelas di atas foto */
+    .dashboard-container {
+        background: 1e60a5a; /* Putih transparan */
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 1200px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+
+
+
+
+/* --- STOCK Styles --- */
+    .form-stok {
+        margin-bottom: 40px;
+    }
+
+    .input-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .input-row input {
+        flex: 1;
+        min-width: 150px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    .btn-tambah {
+        background-color: #1e60a5;
+        color: white;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        flex: 0.5;
+    }
+
+    .search-container {
+        font-family: sans-serif;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        }
+
+    /* Grid untuk Input (5 kolom) */
+    .grid-inputs {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 15px;
+        margin-bottom: 15px;
+        }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        }
+
+    .input-group input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        }
+
+    /* Tombol Cari Full Memanjang */
+    .form-stok .btn-search {
+        width: 100%;
+        /* Padding 14px-16px agar ketebalan tombol pas seperti di gambar */
+        padding: 14px 0; 
+        
+        background-color: #27d07c; 
+        color: white;
+        border: none;
+        
+        /* DIUBAH: Dari 30px ke 10px agar kotak dengan sudut tumpul halus */
+        border-radius: 10px; 
+        
+        font-weight: 700;
+        font-size: 16px; /* Ukuran font disesuaikan agar proporsional */
+        cursor: pointer;
+        display: block;
+        margin-top: 15px;
+        line-height: 1;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .form-stok .btn-search:hover {
+        background: #2ecc71;
+        transform: scale(1.03);
+    }
+
+    /* Tabel Hasil */
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+        display: none; /* Sembunyi sebelum dicari */
+        }
+
+    .result-table th, .result-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        }
+
+    .result-table th {
+        background-color: #f8f9fa;
+        }
+
+    .error-msg {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+        }
+
+    /* Tabel Styling */
+    .table-container {
+        background: white;
+        padding: 0;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: #1e60a5;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        font-size: 0.85rem;
+        text-align: center; /* DITAMBAHKAN: agar semua teks di sel menjadi rata tengah */
+    }
+
+    .img-table {
+        width: 40px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .add-stock-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .add-stock-container h3 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Mencari kolom sampul dan memperbesar gambarnya */
+    table td img {
+        width: 60px;
+        height: auto;
+        border-radius: 4px;
+        transition: transform 0.3s;
+        display: block;
+        margin: 0 auto; /* Tetap rata tengah secara horizontal dalam sel */
+    }
+
+    /* Efek opsional: gambar membesar sedikit saat kursor menempel (hover) */
+    table td img:hover {
+        transform: scale(2.0);
+        cursor: zoom-in;
+        z-index: 10;
+        position: relative;
+    }
+
+    /* Kotak Upload Foto */
+    .upload-area {
+        border: 2px dashed #ccc;
+        padding: 40px;
+        text-align: center;
+        border-radius: 8px;
+        background-color: #fff;
+        color: #777;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: 0.3s;
+    }
+
+    .upload-area:hover {
+        border-color: #0055aa;
+        background-color: #f0f7ff;
+    }
+
+    /* Tata Letak Input */
+    .add-stock-form {
+        display: flex;
+        gap: 15px;
+    }
+
+    .add-stock-form input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .add-stock-form input:focus {
+        border-color: #0055aa;
+    }
+
+    /* Tombol Tambah Hijau */
+    .btn-tambah {
+        background-color: #2ecc71; /* Warna hijau sesuai gambar */
+        color: white;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-tambah:hover {
+        background: #2ecc71;
+        transform: scale(1.03);
+    }
+
+
+
+
+
+/* --- TRACKING Styles --- */
+    .content-card {
+        background: white;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+    }
+
+    .subtitle {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .search-box-wrapper {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Container pembungkus utama */
+    .search-box-wrapper {
+        display: flex;
+        gap: 15px; /* Jarak antara input dan tombol */
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Kolom Pencarian mengambil 70% panjang */
+    .search-box-wrapper input {
+        flex: 70; /* Proporsi 70% */
+        padding: 15px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    /* Kolom Tombol Cari mengambil 30% panjang */
+    .btn-search {
+        flex: 30; /* Proporsi 30% */
+        background: #2ecc71;
+        color: white;
+        border: none;
+        padding: 0; 
+        border-radius: 12px;
+        font-weight: 700;
+        
+        /* TAMBAHKAN BARIS INI */
+        font-size: 17px; 
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        
+        /* Opsional: Memastikan teks benar-benar di tengah secara vertikal */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-search:hover {
+        background: #2ecc71;
+        transform: scale(1.05);
+    }
+
+    .hint-box {
+        background: #f0f7ff;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .badge-hint {
+        background: #fbc02d;
+        padding: 5px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        color: #2c3e50;
+        transition: 0.2s;
+    }
+
+    .badge-hint:hover {
+        filter: brightness(0.9);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        width: 100%;
+        background-color: #e9ecef;
+        border-radius: 20px;
+        height: 25px;
+        overflow: hidden;
+        margin: 20px 0;
+    }
+
+    .progress-bar-fill {
+        background: #2ecc71; 
+        height: 100%;
+        width: 70%; /* Default awal */
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: width 1s ease-in-out; /* Animasi halus */
+    }
+
+    /* Timeline */
+    .timeline {
+        list-style: none;
+        padding-left: 20px;
+        margin-top: 20px;
+        border-left: 3px solid #1e60a5;
+    }
+
+    .timeline li {
+        margin-bottom: 25px;
+        position: relative;
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+    .timeline li::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 5px;
+        width: 15px;
+        height: 15px;
+        background: #1e60a5;
+        border-radius: 50%;
+        border: 3px solid white;
+    }
+
+    .info-grid, .detail-grid {
+        margin: 15px 0;
+    }
+
+    .info-grid p, .detail-grid p {
+        margin-bottom: 8px;
+    }

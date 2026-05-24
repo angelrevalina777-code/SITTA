@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Pengiriman - SITTA UT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    
+    <!-- NAVIGASI -->
+<nav class="main-nav">
+    <!-- Gabungan Logo & Tulisan sebagai Link Beranda -->
+    <a href="dashboard.html" class="nav-brand-container">
+        <div class="nav-brand">
+            <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+            <div class="brand-text">
+                <span>SITTA UT</span>
+            </div>
+        </div>
+    </a>
+
+    <!-- Navigasi Menu Rata Kanan -->
+    <div class="nav-links">
+        <a href="stock.html" class="nav-item">Informasi Bahan Ajar</a>
+        <a href="tracking.html" class="nav-item">Tracking Pengiriman</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Laporan ▾</a>
+            <div class="dropdown-content">
+                <a href="#">Monitoring Progress DO Bahan Ajar</a>
+                <a href="#">Rekap Bahan Ajar</a>
+            </div>
+        </div>
+
+        <a href="histori.html" class="nav-item">Histori Transaksi Bahan Ajar</a>
+        <a href="index.html" class="logout-link">Keluar</a>
+    </div>
+</nav>
+
+
+    
+    <div class="dashboard-container">
+        <!-- Kotak Pencarian Tracking -->
+        <div class="content-card">
+            <h1>Tracking Pengiriman</h1>
+            <p class="subtitle">Masukkan Nomor Delivery Order untuk melihat 
+                nama mahasiswa, status, ekspedisi, tanggal kirim, paket, total pembayaran, dan riwayat perjalanan.</p>
+            
+            <div class="search-box-wrapper">
+                <input type="text" id="nomorDO" placeholder=" Contoh: 2023001234">
+                <button onclick="cariTracking()" class="btn-search">Cari</button>
+            </div>
+
+            <div class="hint-box">
+                Contoh Nomor DO: 
+                <span class="badge-hint" onclick="isiContoh('2023001234')">2023001234</span>
+                <span class="badge-hint" onclick="isiContoh('2023005678')">2023005678</span>
+            </div>
+        </div>
+
+        <!-- Area Hasil Tracking (Awalnya Tersembunyi) -->
+        <div id="hasilTracking" class="content-card result-card" style="display: none; 
+        border-left: 5px solid #1e60a5;">
+            <h2>Hasil Tracking</h2>
+            <div class="info-grid">
+                <p><strong>Nomor DO:</strong> <span id="resDO"></span></p>
+                <p><strong>Nama Mahasiswa:</strong> <span id="resNama"></span></p>
+                <p><strong>Status Pengiriman:</strong> <span id="resStatus" class="text-status"></span></p>
+            </div>
+
+            <!-- Progress Bar Mewah -->
+            <div class="progress-container">
+    <!-- Pastikan class-nya adalah progress-bar-fill agar sinkron dengan JS -->
+    <div class="progress-bar-fill" id="progressBar">70%</div>
+</div>
+
+            <div class="detail-grid">
+                <p><strong>Ekspedisi:</strong> <span id="resEkspedisi"></span></p>
+                <p><strong>Tanggal Kirim:</strong> <span id="resTgl"></span></p>
+                <p><strong>Jenis Paket:</strong> <span id="resPaket"></span></p>
+                <p><strong>Total Pembayaran:</strong> <span id="resBayar"></span></p>
+            </div>
+
+            <hr>
+            <h3>Riwayat Perjalanan</h3>
+            <ul class="timeline" id="riwayatList">
+                <!-- Data Riwayat Akan Masuk Sini -->
+            </ul>
+        </div>
+    </div>
+
+
+<!-- FUNGSI TRACKING -->
+<script>
+    // 1. Definisikan Database Lokal 
+    const dataTracking = {
+        "2023001234": {
+            nama: "Rina Wulandari",
+            status: "Dalam Perjalanan",
+            ekspedisi: "JNE",
+            tanggalKirim: "2025-08-25",
+            paket: "0JKT01",
+            bayar: "Rp 180.000",
+            persentase: "70%",
+            riwayat: [
+                "<b>2025-08-25 10:12:20</b><br>Penerimaan di Loket: TANGERANG SELATAN. Pengirim: Universitas Terbuka",
+                "<b>2025-08-25 14:07:56</b><br>Tiba di Hub: TANGERANG SELATAN",
+                "<b>2025-08-25 18:12:20</b><br>Diteruskan ke Kantor Jakarta Selatan"
+            ]
+        },
+        "2023005678": {
+            nama: "Agus Pranoto",
+            status: "Dikirim",
+            ekspedisi: "Pos Indonesia",
+            tanggalKirim: "2025-08-25",
+            paket: "0UPBJJBDG",
+            bayar: "Rp 220.000",
+            persentase: "100%",
+            riwayat: [
+                "<b>2025-08-25 10:12:20</b><br>Penerimaan di Loket: TANGERANG SELATAN. Pengirim: Universitas Terbuka",
+                "<b>2025-08-25 14:07:56</b><br>Tiba di Hub: TANGERANG SELATAN",
+                "<b>2025-08-25 16:30:10</b><br>Diteruskan ke Kantor Kota Bandung",
+                "<b>2025-08-26 12:15:33</b><br>Tiba di Hub: Kota BANDUNG",
+                "<b>2025-08-26 15:06:12</b><br>Proses antar ke Cimahi",
+                "<b>2025-08-26 20:00:00</b><br>Selesai Antar. Penerima: Agus Pranoto"
+            ]
+        }
+    };
+
+        function isiContoh(no) {
+            document.getElementById('nomorDO').value = no;
+        }
+
+        function cariTracking() {
+            const noDO = document.getElementById('nomorDO').value;
+            const resultArea = document.getElementById('hasilTracking');
+
+        // Cek apakah nomor DO ada di database kita
+        if (dataTracking[noDO]) {
+            const data = dataTracking[noDO];
+
+            // Tampilkan area hasil
+            resultArea.style.display = 'block';
+
+            // Isi data sesuai nomor DO yang dicari
+            document.getElementById('resDO').innerText = noDO;
+            document.getElementById('resNama').innerText = data.nama;
+            document.getElementById('resStatus').innerText = data.status;
+            document.getElementById('resEkspedisi').innerText = data.ekspedisi;
+            document.getElementById('resTgl').innerText = data.tanggalKirim;
+            document.getElementById('resPaket').innerText = data.paket;
+            document.getElementById('resBayar').innerText = data.bayar;
+
+            // Update Progress Bar (Opsional jika ada elemennya)
+            const progressBar = document.querySelector('.progress-bar-fill');
+            if (progressBar) {
+                progressBar.style.width = data.persentase;
+                progressBar.innerText = data.persentase;
+            }
+
+            // Generate list riwayat
+            let listHtml = "";
+            data.riwayat.forEach(item => {
+                listHtml += `<li>${item}</li>`;
+            });
+            document.getElementById('riwayatList').innerHTML = listHtml;
+
+            // Scroll ke hasil agar user tahu data sudah muncul
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+
+        } else {
+            alert("Maaf, Nomor DO " + noDO + " tidak ditemukan!");
+            resultArea.style.display = 'none';
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+</body>
+</html>

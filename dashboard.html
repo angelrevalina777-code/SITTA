@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard SITTA - Universitas Terbuka</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    
+    <!-- NAVIGASI  -->
+    <nav class="main-nav">
+    <!-- Gabungan Logo & Tulisan sebagai Link Beranda -->
+    <a href="dashboard.html" class="nav-brand-container">
+        <div class="nav-brand">
+            <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+            <div class="brand-text">
+                <span>SITTA UT</span>
+            </div>
+        </div>
+    </a>
+
+    <!-- Navigasi Menu Rata Kanan -->
+    <div class="nav-links">
+        <a href="stock.html" class="nav-item">Informasi Bahan Ajar</a>
+        <a href="tracking.html" class="nav-item">Tracking Pengiriman</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Laporan ▾</a>
+            <div class="dropdown-content">
+                <a href="#">Monitoring Progress DO Bahan Ajar</a>
+                <a href="#">Rekap Bahan Ajar</a>
+            </div>
+        </div>
+
+            <a href="histori.html" class="nav-item">Histori Transaksi Bahan Ajar</a>
+            <a href="index.html" class="logout-link">Keluar</a>
+        </div>
+    </nav>
+
+    
+        <div class="dashboard-container">
+            <div class="welcome-banner">
+        <div class="banner-content">
+            <span class="badge">Dashboard Aplikasi SITTA</span>
+            <!-- ID ini yang akan kita targetkan untuk greeting dan nama -->
+            <h1 id="welcomeText">Selamat Datang!</h1> 
+            <p id="userRoleText">Login sebagai Administrator - Pusat</p>
+        </div>
+        <div class="stats-box">
+            <span class="stats-number">1587</span>
+            <span class="stats-label">Total Stok</span>
+        </div>
+    </div>
+
+
+<!-- GREETING --> 
+<script>
+    function updateDashboardGreeting() {
+        const welcomeElement = document.getElementById('welcomeText');
+        const roleElement = document.getElementById('userRoleText');
+        
+        // 1. Ambil Jam Lokal
+        const now = new Date();
+        const hours = now.getHours();
+        let greeting;
+
+        // 2. Logika Waktu
+        if (hours >= 5 && hours < 11) {
+            greeting = "Selamat Pagi";
+        } else if (hours >= 11 && hours < 15) {
+            greeting = "Selamat Siang";
+        } else if (hours >= 15 && hours < 18) {
+            greeting = "Selamat Sore";
+        } else {
+            greeting = "Selamat Malam";
+        }
+
+        // 3. Ambil Data User dari LocalStorage
+        const loggedInUser = localStorage.getItem('userNama') || "Admin SITTA";
+        const loggedInRole = localStorage.getItem('userRole') || "Administrator - Pusat";
+
+        // 4. Tampilkan Gabungan Sapaan + Nama
+        welcomeElement.innerText = `${greeting}, ${loggedInUser}!`;
+        roleElement.innerText = "Login sebagai " + loggedInRole;
+    }
+
+    // Jalankan fungsi saat halaman dimuat
+    window.onload = updateDashboardGreeting;
+</script>
+
+</body>
+</html>
