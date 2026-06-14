@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Bahan Ajar - SITTA UT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav nav-minimal user-nav">
+        <a href="user-katalog.html" class="nav-brand-container">
+            <div class="nav-brand">
+                <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+                <div class="brand-text">
+                    <span>SITTA UT</span>
+                </div>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <a href="user-katalog.html" class="nav-item" aria-current="page">Katalog</a>
+            <a href="user-pemesanan.html" class="nav-item">Pemesanan</a>
+            <a href="user-tracking.html" class="nav-item">Tracking</a>
+            <a href="index.html" class="logout-link logout-minimal">Keluar</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container user-page-shell">
+        <section class="user-hero">
+            <div class="user-hero-copy">
+                <span class="user-badge">Portal Mahasiswa</span>
+                <h1 id="userGreeting">Katalog Bahan Ajar</h1>
+                <p id="userSummary">Pilih buku dari katalog yang tersedia sebelum lanjut ke halaman pemesanan.</p>
+            </div>
+            <div class="user-hero-stat">
+                <strong id="catalogCount">0</strong>
+                <span>Judul siap dipesan</span>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <div class="section-head">
+                <div>
+                    <h2>Katalog Pemesanan</h2>
+                    <p class="subtitle">Lihat detail buku melalui popup, lalu lanjut ke halaman pemesanan dengan buku yang sudah dipilih.</p>
+                </div>
+                <div class="user-search-wrap">
+                    <input type="text" id="catalogSearch" placeholder="Cari judul, kode barang, atau kategori">
+                </div>
+            </div>
+
+            <div id="catalogGrid" class="catalog-grid"></div>
+            <p id="catalogEmpty" class="empty-state" hidden>Tidak ada buku yang cocok dengan pencarian.</p>
+        </section>
+    </div>
+
+    <div id="bookModal" class="book-modal" hidden>
+        <div class="book-modal-backdrop" data-close-modal="true"></div>
+        <div class="book-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalBookTitle">
+            <button type="button" class="modal-close" id="closeModalBtn" aria-label="Tutup popup">×</button>
+            <div class="book-modal-body">
+                <img id="modalBookCover" src="" alt="Sampul buku">
+                <div class="book-modal-copy">
+                    <span id="modalBookCategory" class="user-badge user-badge-soft"></span>
+                    <h3 id="modalBookTitle"></h3>
+                    <p id="modalBookMeta" class="modal-meta"></p>
+                    <p id="modalBookDescription"></p>
+                    <a id="modalOrderBtn" class="btn-search modal-order-btn modal-link-btn" href="user-pemesanan.html">Pesan Buku Ini</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/inventoryStore.js"></script>
+    <script src="js/userPortal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const greeting = document.getElementById('userGreeting');
+            const summary = document.getElementById('userSummary');
+            const catalogGrid = document.getElementById('catalogGrid');
+            const catalogSearch = document.getElementById('catalogSearch');
+            const catalogEmpty = document.getElementById('catalogEmpty');
+            const catalogCount = document.getElementById('catalogCount');
+            const modal = document.getElementById('bookModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalOrderBtn = document.getElementById('modalOrderBtn');
+            const books = userPortal.getBooks();
+
+            let activeBookCode = '';
+
+            userPortal.fillUserGreeting(greeting, summary);
+
+            function openBookModal(bookCode) {
+                const book = books.find(function (item) {
+                    return item.kodeBarang === bookCode;
+                });
+
+                if (!book) {
+                    return;
+                }
+
+                activeBookCode = bookCode;
+                document.getElementById('modalBookCover').src = book.cover;
+                document.getElementById('modalBookCover').alt = book.namaBarang;
+                document.getElementById('modalBookCategory').textContent = book.kategori;
+                document.getElementById('modalBookTitle').textContent = book.namaBarang;
+                document.getElementById('modalBookMeta').textContent = book.kodeBarang + ' • Jenis ' + book.jenisBarang + ' • Edisi ' + book.edisi + ' • ' + book.hargaLabel;
+                document.getElementById('modalBookDescription').textContent = book.deskripsi;
+                modalOrderBtn.href = 'user-pemesanan.html?selected=' + encodeURIComponent(bookCode);
+                modal.hidden = false;
+                document.body.classList.add('modal-open');
+            }
+
+            function closeBookModal() {
+                modal.hidden = true;
+                document.body.classList.remove('modal-open');
+            }
+
+            function renderCatalog() {
+                userPortal.renderCatalog({
+                    grid: catalogGrid,
+                    empty: catalogEmpty,
+                    count: catalogCount,
+                    keyword: catalogSearch.value
+                });
+            }
+
+            catalogSearch.addEventListener('input', renderCatalog);
+            catalogGrid.addEventListener('click', function (event) {
+                const detailCode = event.target.getAttribute('data-detail');
+                const orderCode = event.target.getAttribute('data-order');
+
+                if (detailCode) {
+                    openBookModal(detailCode);
+                }
+
+                if (orderCode) {
+                    window.location.href = 'user-pemesanan.html?selected=' + encodeURIComponent(orderCode);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeBookModal);
+            modal.addEventListener('click', function (event) {
+                if (event.target.hasAttribute('data-close-modal')) {
+                    closeBookModal();
+                }
+            });
+
+            renderCatalog();
+        });
+    </script>
+</body>
+</html>

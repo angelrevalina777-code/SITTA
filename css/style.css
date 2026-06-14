@@ -15,27 +15,27 @@
     }
 
     body.login-body {
-    /* 1. Masukkan path/lokasi foto Anda */
-        background-image: url("../img/Light.jpg"); 
-    
-    /* 2. Pastikan foto menutupi seluruh layar dengan rapi */
-        background-size: cover; 
-    
-    /* 3. Posisi foto selalu di tengah */
-        background-position: center; 
-    
-    /* 4. Foto tidak berulang jika layar sangat lebar */
-        background-repeat: no-repeat; 
-    
-    /* 5. Membuat background tetap diam saat konten di-scroll */
-        background-attachment: fixed; 
-    
-    /* Tambahan agar layout tetap di tengah */
-        height: 100vh;
+        background-image:
+            linear-gradient(135deg, rgba(7, 34, 60, 0.72), rgba(19, 79, 132, 0.54)),
+            url("../img/Light.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
         margin: 0;
+        padding: 32px 20px;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    #halaman-login.login-shell {
+        width: min(1080px, 100%);
+        display: grid;
+        grid-template-columns: minmax(320px, 420px) minmax(320px, 1fr);
+        gap: 24px;
+        align-items: stretch;
     }
 
     /* Font Login */
@@ -43,19 +43,38 @@
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Poppins', sans-serif;
     }
 
     /* Kartu Login */
     #halaman-login .login-card {
-        background: white;
-        padding: 25px 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        width: 90%;
-        max-width: 340px; /* Ukuran lebar maksimal yang ideal */
+        background: rgba(255, 255, 255, 0.97);
+        padding: 34px 32px;
+        border-radius: 28px;
+        box-shadow: 0 24px 48px rgba(0,0,0,0.16);
+        width: 100%;
         text-align: center;
         z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 640px;
+    }
+
+    #halaman-login .logo-wrapper {
+        margin-bottom: 14px;
+    }
+
+    #halaman-login .ut-circle {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: linear-gradient(180deg, #fff7d6, #ffffff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 0 0 1px rgba(251, 192, 45, 0.28);
     }
 
     /* Logo Lingkaran */
@@ -66,40 +85,40 @@
 
     /* Header Text */
     #halaman-login .header-text h1 {
-        font-size: 20px;
+        font-size: 28px;
         color: var(--text-dark);
         font-weight: 700;
-        margin-bottom: 2px;
+        margin-bottom: 6px;
     }
 
     #halaman-login .header-text p {
-        font-size: 11px;
+        font-size: 14px;
         color: var(--text-muted);
-        margin-bottom: 20px;
+        margin-bottom: 26px;
     }
 
     /* Form Styling */
     #halaman-login .input-group {
         text-align: left;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
     }
 
     #halaman-login .input-group label {
         display: block;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
-        margin-bottom: 5px;
+        margin-bottom: 7px;
         color: var(--text-dark);
     }
 
     #halaman-login .input-group input {
         width: 100%;
-        padding: 10px 12px;
+        padding: 13px 14px;
         border: 1px solid #dcdde1;
-        border-radius: 8px;
+        border-radius: 12px;
         outline: none;
         background-color: #f9f9f9;
-        font-size: 13px;
+        font-size: 14px;
         transition: 0.3s;
     }
 
@@ -112,16 +131,16 @@
     /* Tombol Login */
     #halaman-login .btn-login {
         width: 100%;
-        padding: 11px;
+        padding: 13px;
         background-color: var(--ut-yellow);
         color: #1a237e;
         border: none;
-        border-radius: 8px;
-        font-size: 14px;
+        border-radius: 12px;
+        font-size: 15px;
         font-weight: 700;
         cursor: pointer;
         transition: 0.3s;
-        margin-top: 10px;
+        margin-top: 12px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
@@ -134,8 +153,9 @@
     #halaman-login .footer-links {
         display: flex;
         justify-content: space-between;
-        margin-top: 15px;
-        font-size: 12px;
+        margin-top: 18px;
+        font-size: 13px;
+        gap: 12px;
     }
 
     #halaman-login .footer-links a {
@@ -231,26 +251,133 @@
 
     /* Akun Demo Box */
     #halaman-login .demo-box {
-        margin-top: 20px;
+        margin-top: 24px;
         background-color: #ebf3fb;
-        padding: 10px;
-        border-radius: 10px;
+        padding: 14px;
+        border-radius: 14px;
         text-align: left;
         border-left: 4px solid var(--ut-blue);
     }
 
     #halaman-login .demo-box span {
         font-weight: 700;
-        font-size: 11px;
+        font-size: 12px;
         color: var(--text-dark);
         display: block;
-        margin-bottom: 3px;
+        margin-bottom: 6px;
     }
 
     #halaman-login .demo-box p {
-        font-size: 11px;
+        font-size: 12px;
         color: #576574;
-        margin: 0;
+        margin: 0 0 4px;
+    }
+
+    #halaman-login .demo-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    #halaman-login .login-side-panel {
+        position: relative;
+        overflow: hidden;
+        padding: 42px 36px;
+        border-radius: 28px;
+        background:
+            radial-gradient(circle at top right, rgba(251, 192, 45, 0.34), transparent 28%),
+            linear-gradient(145deg, rgba(13, 54, 92, 0.96), rgba(34, 112, 183, 0.92));
+        color: #fff;
+        box-shadow: 0 24px 48px rgba(0,0,0,0.16);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 640px;
+    }
+
+    #halaman-login .login-side-badge {
+        display: inline-flex;
+        width: fit-content;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.16);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    #halaman-login .login-side-panel h2 {
+        font-size: 2.25rem;
+        line-height: 1.15;
+        margin-bottom: 14px;
+    }
+
+    #halaman-login .login-side-panel > p {
+        color: rgba(255,255,255,0.86);
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 480px;
+    }
+
+    #halaman-login .login-side-points {
+        display: grid;
+        gap: 14px;
+    }
+
+    #halaman-login .login-side-point {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+    }
+
+    #halaman-login .login-side-point strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 1rem;
+    }
+
+    #halaman-login .login-side-point span {
+        color: rgba(255,255,255,0.84);
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    @media (max-width: 920px) {
+        #halaman-login.login-shell {
+            grid-template-columns: 1fr;
+            max-width: 460px;
+        }
+
+        #halaman-login .login-card,
+        #halaman-login .login-side-panel {
+            min-height: auto;
+        }
+
+        #halaman-login .login-side-panel {
+            order: -1;
+            padding: 28px 24px;
+        }
+
+        #halaman-login .login-side-panel h2 {
+            font-size: 1.7rem;
+        }
+    }
+
+    @media (max-width: 520px) {
+        body.login-body {
+            padding: 18px 14px;
+        }
+
+        #halaman-login .login-card {
+            padding: 26px 20px;
+            border-radius: 22px;
+        }
+
+        #halaman-login .footer-links {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 
 
@@ -658,7 +785,8 @@
         background: white;
         padding: 0;
         border-radius: 15px;
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
         box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     }
 
@@ -919,6 +1047,469 @@
         border: 3px solid white;
     }
 
+/* --- STOCK PAGE REFRESH --- */
+    .nav-minimal {
+        padding: 10px 4%;
+        border-bottom-width: 2px;
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-minimal .nav-logo {
+        height: 44px;
+    }
+
+    .nav-minimal .brand-text span {
+        font-size: 1.45rem;
+        letter-spacing: 0.02em;
+    }
+
+    .nav-minimal .nav-links {
+        gap: 12px;
+    }
+
+    .nav-minimal .nav-item,
+    .nav-minimal .dropbtn {
+        font-size: 0.88rem;
+        font-weight: 600;
+        padding: 8px 0;
+    }
+
+    .nav-minimal .nav-item[aria-current="page"] {
+        color: #002c5f;
+        text-decoration: underline;
+        text-underline-offset: 6px;
+    }
+
+    .logout-minimal {
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+    }
+
+    .stock-card {
+        overflow: hidden;
+    }
+
+    .stock-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 10px;
+    }
+
+    .search-panel {
+        max-width: none;
+        margin: 0;
+        padding: 8px 0 0;
+    }
+
+    .search-single-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 180px;
+        gap: 14px;
+        align-items: stretch;
+    }
+
+    .search-input-wrap input {
+        width: 100%;
+        min-height: 54px;
+        padding: 0 18px;
+        border: 1px solid #d6dfeb;
+        border-radius: 16px;
+        font-size: 0.98rem;
+        background: #ffffff;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input-wrap input:focus,
+    .image-filter-card select:focus {
+        outline: none;
+        border-color: var(--ut-blue);
+        box-shadow: 0 0 0 4px rgba(30, 96, 165, 0.12);
+    }
+
+    .search-panel .btn-search {
+        width: 100%;
+        min-height: 54px;
+        margin-top: 0;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #1e60a5, #14497e);
+    }
+
+    .search-panel .btn-search:hover {
+        background: linear-gradient(135deg, #215f9e, #0f3c68);
+        transform: translateY(-1px);
+    }
+
+    .image-filter-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+    }
+
+    .image-filter-card {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(240,245,251,0.95));
+        border: 1px solid #d7e1ee;
+        border-radius: 18px;
+    }
+
+    .filter-visual {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-visual img {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+    }
+
+    .filter-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .filter-label {
+        font-size: 0.98rem;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .filter-desc {
+        font-size: 0.83rem;
+        line-height: 1.5;
+        color: var(--text-muted);
+    }
+
+    .image-filter-card select {
+        grid-column: 1 / -1;
+        width: 100%;
+        min-height: 46px;
+        padding: 0 14px;
+        border: 1px solid #d6dfeb;
+        border-radius: 12px;
+        background: #fff;
+        color: #29465f;
+        font-size: 0.92rem;
+    }
+
+    .stock-table-wrap {
+        margin-top: 24px;
+    }
+
+    .empty-state {
+        padding: 18px 20px;
+        text-align: center;
+        color: #5f6c7b;
+        font-size: 0.92rem;
+        background: #f8fbff;
+        border-top: 1px solid #e3ebf5;
+    }
+
+    .add-stock-last-row {
+        margin-top: 15px;
+    }
+
+    .stock-status-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 22px;
+    }
+
+    .stock-alert-card {
+        padding: 18px;
+        border-radius: 20px;
+        border: 1px solid #dfe8f2;
+        background: #fff;
+        box-shadow: 0 12px 24px rgba(18, 52, 80, 0.06);
+    }
+
+    .stock-alert-card strong {
+        display: block;
+        margin: 12px 0 6px;
+        font-size: 2rem;
+        color: #153956;
+    }
+
+    .stock-alert-card p {
+        color: #667b8d;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .stock-alert-red {
+        background: linear-gradient(180deg, #fff6f5, #ffffff);
+    }
+
+    .stock-alert-yellow {
+        background: linear-gradient(180deg, #fffbea, #ffffff);
+    }
+
+    .stock-alert-green {
+        background: linear-gradient(180deg, #f4fff7, #ffffff);
+    }
+
+    .stock-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 8px 12px 8px 10px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.01em;
+    }
+
+    .stock-indicator-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        font-size: 0;
+        font-weight: 700;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.72);
+    }
+
+    .stock-indicator-red {
+        background: #ffefed;
+        color: #b3382f;
+    }
+
+    .stock-indicator-red .stock-indicator-icon {
+        background: #dd4d43;
+    }
+
+    .stock-indicator-yellow {
+        background: #fff7da;
+        color: #9a6a00;
+    }
+
+    .stock-indicator-yellow .stock-indicator-icon {
+        background: #d9a316;
+    }
+
+    .stock-indicator-green {
+        background: #e9f8ef;
+        color: #1f7b43;
+    }
+
+    .stock-indicator-green .stock-indicator-icon {
+        background: #2f9e61;
+    }
+
+    .admin-top-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .admin-link-btn {
+        width: auto;
+        min-width: 180px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0;
+    }
+
+    .admin-mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-ghost-btn {
+        min-height: 54px;
+        padding: 0 18px;
+        border-radius: 16px;
+        background: #f6f9fc;
+    }
+
+    .admin-table-wrap {
+        margin-top: 24px;
+    }
+
+    .admin-stock-table {
+        min-width: 1080px;
+    }
+
+    .admin-stock-table th:nth-child(1) { width: 28%; }
+    .admin-stock-table th:nth-child(2) { width: 13%; }
+    .admin-stock-table th:nth-child(3) { width: 14%; }
+    .admin-stock-table th:nth-child(4) { width: 14%; }
+    .admin-stock-table th:nth-child(5) { width: 10%; }
+    .admin-stock-table th:nth-child(6) { width: 7%; }
+    .admin-stock-table th:nth-child(7) { width: 14%; }
+
+    .admin-book-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 220px;
+        text-align: left;
+    }
+
+    .admin-book-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .admin-book-copy strong,
+    .admin-inline-stack strong,
+    .admin-stock-number {
+        color: #173a55;
+    }
+
+    .admin-book-copy span,
+    .admin-inline-stack span {
+        font-size: 0.78rem;
+        color: #667b8d;
+    }
+
+    .admin-inline-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .admin-stock-table td:nth-child(1),
+    .admin-stock-table td:nth-child(2),
+    .admin-stock-table td:nth-child(3),
+    .admin-stock-table td:nth-child(4) {
+        text-align: left;
+    }
+
+    .table-action-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .btn-table-action {
+        width: auto;
+        min-width: 64px;
+        padding: 8px 12px;
+        font-size: 0.74rem;
+        border-radius: 10px;
+        white-space: nowrap;
+        line-height: 1.1;
+    }
+
+    .btn-danger {
+        border: 1px solid #efc6c3;
+        background: #fff2f1;
+        color: #bc372d;
+        padding: 8px 12px;
+        border-radius: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .admin-modal-panel {
+        width: min(860px, calc(100vw - 32px));
+    }
+
+    .admin-modal-body {
+        padding: 24px;
+    }
+
+    .admin-modal-head {
+        margin-bottom: 14px;
+    }
+
+    .admin-modal-head .subtitle {
+        margin-bottom: 0;
+    }
+
+    .admin-inline-form {
+        gap: 16px;
+    }
+
+    @media (max-width: 920px) {
+        .nav-minimal {
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .nav-minimal .nav-links {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-single-row,
+        .image-filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stock-status-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .content-card {
+            padding: 24px 18px;
+        }
+
+        .image-filter-card {
+            grid-template-columns: 60px minmax(0, 1fr);
+            padding: 14px;
+        }
+
+        .filter-visual,
+        .filter-visual img {
+            width: 60px;
+            height: 60px;
+        }
+
+        th,
+        td {
+            padding: 10px 8px;
+            font-size: 0.8rem;
+        }
+
+        .admin-mini-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-top-actions {
+            width: 100%;
+        }
+
+        .admin-top-actions > * {
+            width: 100%;
+        }
+
+        .admin-book-cell {
+            min-width: 180px;
+        }
+
+        .admin-modal-body {
+            padding: 18px;
+        }
+    }
+
     .info-grid, .detail-grid {
         margin: 15px 0;
     }
@@ -926,3 +1517,697 @@
     .info-grid p, .detail-grid p {
         margin-bottom: 8px;
     }
+
+/* --- USER PORTAL --- */
+    .user-page-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .user-nav {
+        background: linear-gradient(135deg, #ffe27a, #ffd24a);
+    }
+
+    .user-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(220px, 0.7fr);
+        gap: 20px;
+        padding: 28px 30px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(10, 62, 115, 0.94), rgba(33, 111, 184, 0.9));
+        color: #fff;
+        box-shadow: 0 18px 32px rgba(14, 59, 104, 0.22);
+    }
+
+    .user-badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .user-badge-soft {
+        background: #eef5ff;
+        color: #1e60a5;
+    }
+
+    .user-hero-copy h1 {
+        margin: 14px 0 12px;
+        font-size: 2.2rem;
+        line-height: 1.1;
+    }
+
+    .user-hero-copy p {
+        max-width: 700px;
+        color: rgba(255, 255, 255, 0.86);
+        line-height: 1.7;
+    }
+
+    .user-hero-stat {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(8px);
+        text-align: center;
+    }
+
+    .user-hero-stat strong {
+        font-size: 3rem;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+        margin-bottom: 8px;
+        color: #153956;
+    }
+
+    .user-search-wrap {
+        min-width: 280px;
+    }
+
+    .user-search-wrap input,
+    .user-order-form textarea,
+    .user-order-form input,
+    .user-order-form select {
+        width: 100%;
+        border: 1px solid #d5dfeb;
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-size: 0.95rem;
+        background: #fff;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .user-search-wrap input:focus,
+    .user-order-form textarea:focus,
+    .user-order-form input:focus,
+    .user-order-form select:focus {
+        outline: none;
+        border-color: #1e60a5;
+        box-shadow: 0 0 0 4px rgba(30, 96, 165, 0.12);
+    }
+
+    .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+    }
+
+    .catalog-card {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(180deg, #ffffff, #f7fbff);
+        border: 1px solid #dfebf6;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 26px rgba(20, 73, 126, 0.08);
+    }
+
+    .catalog-cover {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        background: #edf4fa;
+    }
+
+    .catalog-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px;
+        height: 100%;
+    }
+
+    .catalog-chip {
+        display: inline-flex;
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #edf4ff;
+        color: #1e60a5;
+        font-size: 0.76rem;
+        font-weight: 700;
+    }
+
+    .catalog-content h3 {
+        color: #14354f;
+        line-height: 1.35;
+    }
+
+    .catalog-code {
+        font-size: 0.84rem;
+        color: #5d7182;
+    }
+
+    .catalog-copy {
+        color: #506575;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        flex: 1;
+    }
+
+    .catalog-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        color: #173a55;
+        font-size: 0.88rem;
+    }
+
+    .catalog-stock-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .catalog-stock-count {
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: #5f7384;
+    }
+
+    .catalog-region-tag {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: #f3f7fb;
+        color: #4c667b;
+        font-size: 0.78rem;
+        font-weight: 600;
+    }
+
+    .catalog-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .btn-secondary {
+        border: 1px solid #cfe0f1;
+        background: #fff;
+        color: #1b4e7f;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .catalog-order-btn,
+    .order-submit,
+    .modal-order-btn {
+        min-height: 48px;
+        border-radius: 14px;
+    }
+
+    .catalog-actions .btn-search,
+    .order-actions .btn-search,
+    .user-tracking-search .btn-search,
+    .modal-link-btn {
+        flex: initial;
+        text-decoration: none;
+    }
+
+    .modal-link-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 6px;
+    }
+
+    .user-order-form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .user-order-form .input-group {
+        margin-bottom: 0;
+    }
+
+    .user-order-form .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #27445c;
+    }
+
+    .user-form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .order-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .order-actions .btn-search {
+        width: auto;
+        min-width: 220px;
+        margin-top: 0;
+        background: linear-gradient(135deg, #1e60a5, #184d81);
+    }
+
+    .order-feedback {
+        font-size: 0.92rem;
+        color: #215c3a;
+        font-weight: 600;
+    }
+
+    .order-feedback a {
+        color: #1e60a5;
+        font-weight: 700;
+    }
+
+    .user-tracking-search {
+        margin-bottom: 14px;
+    }
+
+    .user-hints {
+        flex-wrap: wrap;
+    }
+
+    .tracking-feedback {
+        min-height: 22px;
+        margin-bottom: 4px;
+        color: #b33c2e;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .user-tracking-card {
+        margin-top: 20px;
+        background: linear-gradient(180deg, #fbfdff, #f3f8fd);
+        border: 1px solid #dbe7f2;
+        border-radius: 20px;
+        padding: 24px;
+    }
+
+    .book-modal[hidden] {
+        display: none;
+    }
+
+    .book-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+    }
+
+    .book-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(7, 26, 43, 0.58);
+    }
+
+    .book-modal-panel {
+        position: relative;
+        z-index: 1;
+        width: min(920px, calc(100vw - 32px));
+        margin: 70px auto;
+        border-radius: 26px;
+        background: #fff;
+        box-shadow: 0 28px 60px rgba(5, 32, 58, 0.28);
+        overflow: hidden;
+    }
+
+    .book-modal-body {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .book-modal-body img {
+        width: 100%;
+        height: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        border-radius: 20px;
+        background: #edf3f8;
+    }
+
+    .book-modal-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        color: #28445c;
+    }
+
+    .book-modal-copy h3 {
+        font-size: 1.8rem;
+        color: #12354f;
+    }
+
+    .modal-meta {
+        color: #688093;
+        font-size: 0.92rem;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 999px;
+        background: rgba(10, 45, 76, 0.08);
+        color: #173a55;
+        font-size: 1.6rem;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    body.modal-open {
+        overflow: hidden;
+    }
+
+    @media (max-width: 980px) {
+        .user-hero,
+        .book-modal-body,
+        .user-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-head {
+            flex-direction: column;
+        }
+
+        .user-search-wrap {
+            width: 100%;
+            min-width: 0;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .user-hero {
+            padding: 22px 18px;
+        }
+
+        .catalog-actions {
+            grid-template-columns: 1fr;
+        }
+
+        .book-modal-panel {
+            margin: 24px auto;
+        }
+
+        .book-modal-body {
+            padding: 18px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+/*TUGAS 2*/
+
+
+/* Container Header Utama */
+.stock-header {
+    display: flex;
+    flex-direction: column;   /* Menyusun konten (judul, subjudul, lalu tombol) ke bawah */
+    align-items: flex-start;  /* Memastikan semua elemen rata kiri */
+    gap: 16px;                /* Memberi jarak vertikal antar elemen */
+    margin-bottom: 28px;
+    width: 100%;
+}
+
+/* Memastikan area teks memanjang penuh tanpa batasan padding */
+.stock-header > div:first-child {
+    width: 100%;
+    padding-right: 0;         /* Reset padding kanan agar teks memanjang penuh */
+    box-sizing: border-box;
+}
+
+.stock-header h1 {
+    margin: 0 0 8px 0;
+}
+
+.stock-header .subtitle {
+    margin: 0;
+    width: 100%;              /* Teks penjelasan memenuhi area hingga ke pinggir kiri-kanan */
+}
+
+/* Container Aksi Tombol di bawah deskripsi */
+.admin-top-actions {
+    display: block;           /* Mengubah menjadi block/flex full width */
+    width: 100%;              /* Membuka ruang selebar container utama */
+    margin-top: 4px;          /* Jarak tambahan dari subjudul ke tombol */
+}
+
+/* Tombol Tambah Buku Baru Full Width */
+#openAddBookBtn {
+    background-color: #2ecc71;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    
+    padding: 12px 0;          /* Padding kiri-kanan diset 0 karena lebarnya sudah 100% */
+    width: 100%;              /* Membuat tombol memanjang penuh ke samping kiri-kanan */
+    
+    border: none;
+    border-radius: 8px;       /* Kelengkungan sudut serasi dengan tombol Cari */
+    cursor: pointer;
+    text-align: center;       /* Memastikan teks tombol berada tepat di tengah-tengah */
+    display: block;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Efek Hover & Ditekan */
+#openAddBookBtn:hover {
+    background-color: #27ae60;
+}
+
+#openAddBookBtn:active {
+    transform: scale(0.995);  /* Efek sedikit mengecil saat diklik */
+}
+
+
+    
+/* Pastikan card utama menyusun kontennya ke kiri */
+.image-filter-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Memaksa semua elemen di dalamnya mulai dari kiri */
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mengatur baris konten bagian atas (ikon + teks) */
+.filter-header-content {
+    display: flex;
+    flex-direction: column;  /* Mengubah tumpukan ikon dan teks menjadi vertikal kebawah */
+    align-items: flex-start; /* Membuat ikon dan teks rata kiri */
+    gap: 12px;
+    width: 100%;
+    text-align: left;        /* Memastikan text di dalamnya rata kiri */
+}
+
+/* Jika Anda ingin ikon dan teks tetap bersebelahan (horizontal) tetapi rapat kiri, gunakan ini: */
+/* .filter-header-content {
+    display: flex;
+    flex-direction: row;     
+    align-items: center;     
+    justify-content: flex-start; 
+    gap: 16px;
+    width: 100%;
+    text-align: left;
+}
+*/
+
+/* Mengatur pembungkus teks judul & deskripsi */
+.filter-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Rata kiri untuk text block */
+    gap: 4px;
+    text-align: left;        /* Menghilangkan efek center jika ada */
+}
+
+.filter-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.filter-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* Bungkus Select Box agar lebarnya penuh mengikuti card */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #334155;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    text-align: left; /* Memastikan teks di dalam select box rata kiri */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+
+/* ==========================================================================
+    KODE FIX KONSISTENSI UKURAN DAN PERATAAN COVER BUKU (TARUH DI PALING BAWAH)
+   ========================================================================== */
+
+/* 1. Reset aturan penengah otomatis yang merusak keselarasan teks */
+#mainTableBody table td img,
+#mainTableBody td img,
+#mainTableBody .img-table {
+    width: 45px !important;
+    min-width: 45px !important;
+    max-width: 45px !important;
+    
+    height: 60px !important;
+    min-height: 60px !important;
+    max-height: 60px !important;
+    
+    object-fit: cover !important; /* Memotong sisa gambar agar presisi */
+    border-radius: 4px !important;
+    display: block !important;
+    margin: 0 !important; /* Menghilangkan margin auto yang mendorong teks */
+    transform: none !important; /* Mencegah bug distorsi */
+}
+
+/* 2. Mengunci flexbox wadah buku agar sejajar lurus ke bawah */
+.admin-book-cell {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important; /* Jarak konstan antara gambar & teks */
+    width: 100% !important;
+    text-align: left !important;
+}
+
+/* 3. Menghilangkan spasi liar pada kolom teks judul */
+.admin-book-copy {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    text-align: left !important;
+}
+
+/* 4. Memaksa kolom tabel rata tengah secara vertikal */
+#mainTableBody tr td {
+    vertical-align: middle !important;
+}
+
+
+
+/* ==========================================================================
+    PERBAIKAN TOTAL: STRUKTUR KARTU KATALOG UT SEJAJAR & SIMETRIS
+   ========================================================================== */
+
+/* 1. Paksa kontainer kartu memiliki tinggi seragam berbasis Flexbox */
+.catalog-card {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 520px !important; /* Mengunci tinggi minimal seluruh kartu */
+    justify-content: flex-start !important;
+}
+
+/* 2. Mengatur pembungkus konten utama */
+.catalog-card .catalog-content {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
+    height: 100% !important;
+}
+
+/* 3. MENGUNCI TINGGI JUDUL BUKU (Maksimal 2 baris)
+   Ini menahan agar judul 1 baris dan 2 baris tidak merusak ke sejajaran bawah */
+.catalog-card .catalog-content h3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    height: 48px !important;       /* Mengunci tinggi judul */
+    line-height: 24px !important;
+    margin-top: 8px !important;
+    margin-bottom: 4px !important;
+}
+
+/* 4. MENGUNCI TINGGI DESKRIPSI (.catalog-copy)
+   Membuat ruang teks deskripsi semua kartu sama rata */
+.catalog-card .catalog-copy {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    
+    height: 40px !important;       /* Tinggi dikunci untuk 2 baris teks */
+    line-height: 20px !important;
+    margin-top: 8px !important;
+    margin-bottom: 16px !important;
+}
+
+/* 5. MEMAKSA FOOTER DAN TOMBOL SELALU DI DASAR KARTU */
+.catalog-card .catalog-footer {
+    margin-top: auto !important;   /* Menarik harga ke posisi paling bawah */
+    margin-bottom: 12px !important;
+}
+
+.catalog-card .catalog-actions {
+    margin-top: 0 !important;      /* Mengunci tombol Detail & Pesan di bawah */
+}

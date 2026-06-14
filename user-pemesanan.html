@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan - SITTA UT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="main-nav nav-minimal user-nav">
+        <a href="user-katalog.html" class="nav-brand-container">
+            <div class="nav-brand">
+                <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+                <div class="brand-text">
+                    <span>SITTA UT</span>
+                </div>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <a href="user-katalog.html" class="nav-item">Katalog</a>
+            <a href="user-pemesanan.html" class="nav-item" aria-current="page">Pemesanan</a>
+            <a href="user-tracking.html" class="nav-item">Tracking</a>
+            <a href="index.html" class="logout-link logout-minimal">Keluar</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container user-page-shell">
+        <section class="user-hero">
+            <div class="user-hero-copy">
+                <span class="user-badge">Portal Mahasiswa</span>
+                <h1 id="userGreeting">Form Pemesanan</h1>
+                <p id="userSummary">Lengkapi data pemesanan bahan ajar dan simpan nomor pesanan untuk tracking.</p>
+            </div>
+            <div class="user-hero-stat">
+                <strong id="latestOrderStat">-</strong>
+                <span>Nomor pesanan terakhir</span>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <div class="section-head">
+                <div>
+                    <h2>Isi Data Pemesanan</h2>
+                    <p class="subtitle">Setelah pesanan dibuat, kamu bisa lanjut langsung ke halaman tracking untuk memantau progresnya.</p>
+                </div>
+            </div>
+
+            <form id="orderForm" class="user-order-form">
+                <div class="user-form-grid">
+                    <div class="input-group">
+                        <label for="orderNama">Nama Pemesan</label>
+                        <input type="text" id="orderNama" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="orderNim">NIM</label>
+                        <input type="text" id="orderNim" placeholder="Masukkan NIM" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="orderLokasi">UT-Daerah</label>
+                        <input type="text" id="orderLokasi" placeholder="Contoh: Bandung" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="orderBook">Buku Dipilih</label>
+                        <select id="orderBook" required></select>
+                    </div>
+                    <div class="input-group">
+                        <label for="orderQty">Jumlah</label>
+                        <input type="number" id="orderQty" min="1" value="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="orderCourier">Ekspedisi</label>
+                        <select id="orderCourier" required>
+                            <option value="JNE">JNE</option>
+                            <option value="Pos Indonesia">Pos Indonesia</option>
+                            <option value="SiCepat">SiCepat</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="orderAddress">Alamat Pengiriman</label>
+                    <textarea id="orderAddress" rows="4" placeholder="Masukkan alamat lengkap pengiriman" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="orderNote">Catatan</label>
+                    <textarea id="orderNote" rows="3" placeholder="Opsional: catatan tambahan untuk admin atau pengiriman"></textarea>
+                </div>
+
+                <div class="order-actions">
+                    <button type="submit" class="btn-search order-submit">Buat Pesanan</button>
+                    <p id="orderFeedback" class="order-feedback"></p>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/inventoryStore.js"></script>
+    <script src="js/userPortal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            const selectedCode = params.get('selected') || '';
+            const session = userPortal.getUserSession();
+            const greeting = document.getElementById('userGreeting');
+            const summary = document.getElementById('userSummary');
+            const latestOrderStat = document.getElementById('latestOrderStat');
+            const orderForm = document.getElementById('orderForm');
+            const orderBook = document.getElementById('orderBook');
+            const orderFeedback = document.getElementById('orderFeedback');
+
+            userPortal.fillUserGreeting(greeting, summary);
+            latestOrderStat.textContent = userPortal.getLatestOrderNumber() || '-';
+            userPortal.populateOrderOptions(orderBook, selectedCode);
+
+            document.getElementById('orderNama').value = session.nama;
+            document.getElementById('orderLokasi').value = session.lokasi;
+
+            orderForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const order = userPortal.createOrder({
+                    nama: document.getElementById('orderNama').value.trim(),
+                    nim: document.getElementById('orderNim').value.trim(),
+                    lokasi: document.getElementById('orderLokasi').value.trim(),
+                    kodeBarang: orderBook.value,
+                    qty: document.getElementById('orderQty').value,
+                    ekspedisi: document.getElementById('orderCourier').value,
+                    alamat: document.getElementById('orderAddress').value.trim(),
+                    catatan: document.getElementById('orderNote').value.trim()
+                });
+
+                if (!order) {
+                    return;
+                }
+
+                latestOrderStat.textContent = order.nomor;
+                orderFeedback.innerHTML = 'Pesanan berhasil dibuat dengan nomor <strong>' + order.nomor + '</strong>. <a href="user-tracking.html?order=' + encodeURIComponent(order.nomor) + '">Lihat tracking</a>.';
+                orderForm.reset();
+                document.getElementById('orderNama').value = session.nama;
+                document.getElementById('orderLokasi').value = session.lokasi;
+                userPortal.populateOrderOptions(orderBook, selectedCode || orderBook.value);
+            });
+        });
+    </script>
+</body>
+</html>

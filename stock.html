@@ -5,273 +5,547 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi Stok Bahan Ajar - SITTA UT</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="app">
-
-    <!--  NAVIGASI  --> 
-<nav class="main-nav">
-    <!-- Gabungan Logo & Tulisan sebagai Link Beranda -->
-    <a href="dashboard.html" class="nav-brand-container">
-        <div class="nav-brand">
-            <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
-            <div class="brand-text">
-                <span>SITTA UT</span>
+    <nav class="main-nav nav-minimal">
+        <a href="dashboard.html" class="nav-brand-container">
+            <div class="nav-brand">
+                <img src="img/logo_ut.png" alt="Logo UT" class="nav-logo">
+                <div class="brand-text">
+                    <span>SITTA UT</span>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
 
-    <!-- Navigasi Menu Rata Kanan -->
-    <div class="nav-links">
-        <a href="stock.html" class="nav-item">Informasi Bahan Ajar</a>
-        <a href="tracking.html" class="nav-item">Tracking Pengiriman</a>
-        
-        <div class="dropdown">
-            <a href="#" class="dropbtn">Laporan ▾</a>
-            <div class="dropdown-content">
-                <a href="#">Monitoring Progress DO Bahan Ajar</a>
-                <a href="#">Rekap Bahan Ajar</a>
+        <div class="nav-links">
+            <a href="stock.html" class="nav-item" aria-current="page">Bahan Ajar</a>
+            <a href="tracking.html" class="nav-item">Tracking</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Laporan <span class="arrow">▾</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Monitoring Progress DO Bahan Ajar</a>
+                    <a href="#">Rekap Bahan Ajar</a>
+                </div>
             </div>
+            <a href="histori.html" class="nav-item">Histori</a>
+            <a href="index.html" class="logout-link logout-minimal">Keluar</a>
         </div>
+    </nav>
 
-        <a href="histori.html" class="nav-item">Histori Transaksi Bahan Ajar</a>
-        <a href="index.html" class="logout-link">Keluar</a>
-    </div>
-</nav>
+    <div class="dashboard-container">
+        <div class="content-card stock-card">
+            <div class="stock-header">
+                <div>
+                    <h1>Katalog Admin Bahan Ajar</h1>
+                    <p class="subtitle">Panel admin untuk memantau kondisi stok, memperbarui jumlah, dan mengelola data buku tanpa memenuhi halaman utama.</p>
+                </div>
+                <div class="admin-top-actions">
+                <button type="button" class="btn-search admin-link-btn" id="openAddBookBtn">Tambah Buku Baru</button>
+            </div>
+            </div>
 
-<div class="dashboard-container">
-        
-        <!-- Area Input & Highlight -->
-        <div class="content-card">
-            <h1>Informasi Stok Bahan Ajar</h1>
-            <p class="subtitle">Data ditampilkan secara dinamis untuk memudahkan pengecekan stok gudang</p>
+            <div class="stock-status-grid">
+                <div class="stock-alert-card stock-alert-red">
+                    <span class="stock-indicator stock-indicator-red"><span class="stock-indicator-icon">•</span><span>Stok Habis</span></span>
+                    <strong id="countRed">0</strong>
+                    <p>Judul di kategori ini sudah tidak bisa diproses untuk pemesanan.</p>
+                </div>
+                <div class="stock-alert-card stock-alert-yellow">
+                    <span class="stock-indicator stock-indicator-yellow"><span class="stock-indicator-icon">•</span><span>Stok Minimum</span></span>
+                    <strong id="countYellow">0</strong>
+                    <p>Stok masih tersedia, tetapi sudah mendekati batas aman.</p>
+                </div>
+                <div class="stock-alert-card stock-alert-green">
+                    <span class="stock-indicator stock-indicator-green"><span class="stock-indicator-icon">•</span><span>Stok Aman</span></span>
+                    <strong id="countGreen">0</strong>
+                    <p>Jumlah buku mencukupi untuk permintaan rutin.</p>
+                </div>
+            </div>
 
-        <!-- Area Input & Highlight -->
-        <div class="search-container">
-            <form id="inventoryForm">
-                <div class="grid-inputs">
-                    <div class="input-group">
-                        <input type="text" id="locCode" placeholder="Kode Lokasi">
-                        <span id="errLoc" class="error-msg">Wajib diisi</span>
+            <form id="inventoryForm" class="search-container search-panel">
+                <div class="search-single-row">
+                    <div class="search-input-wrap">
+                        <input type="text" id="globalSearch" placeholder="Cari kode barang, nama barang, lokasi, kategori, atau daerah">
                     </div>
-                    <div class="input-group">
-                        <input type="text" id="itemCode" placeholder="Kode Barang">
-                        <span id="errItem" class="error-msg">Wajib diisi</span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text"
-                                v-model="searchNama"
-                                placeholder="Nama Barang">
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="itemType" placeholder="Jenis Barang">
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="edition" placeholder="Edisi">
-                    </div>
+                    <button type="submit" class="btn-search">Cari</button>
                 </div>
 
-                <div class="form-stok">
-            <button class="btn-search">Cari</button>  
+                <div class="image-filter-grid">
+    <label class="image-filter-card" for="filterCategory">
+        <div class="filter-main-content">
+            <div class="filter-visual filter-subject">
+                <img
+                    src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='24' fill='%23e9f2ff'/%3E%3Crect x='24' y='22' width='48' height='52' rx='8' fill='%231e60a5'/%3E%3Crect x='31' y='30' width='34' height='4' rx='2' fill='white'/%3E%3Crect x='31' y='40' width='24' height='4' rx='2' fill='white'/%3E%3Crect x='31' y='50' width='30' height='4' rx='2' fill='white'/%3E%3Ccircle cx='63' cy='61' r='9' fill='%23fbc02d'/%3E%3C/svg%3E"
+                    alt="Ikon kategori matkul"
+                >
+            </div>
+            <div class="filter-copy">
+                <span class="filter-label">Kategori Matkul</span>
+                <span class="filter-desc">Saring bahan ajar berdasarkan kategori.</span>
+            </div>
+        </div>
+        <select id="filterCategory" class="filter-select-box">
+            <option value="">Semua Kategori</option>
+            <option value="Komunikasi">Komunikasi</option>
+            <option value="Manajemen">Manajemen</option>
+            <option value="Kepemimpinan">Kepemimpinan</option>
+            <option value="Sains">Sains</option>
+            <option value="PAUD">PAUD</option>
+            <option value="Umum">Umum</option>
+        </select>
+    </label>
+
+    <label class="image-filter-card" for="filterRegion">
+        <div class="filter-main-content">
+            <div class="filter-visual filter-region">
+                <img
+                    src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='24' fill='%23fff3cc'/%3E%3Cpath d='M26 57c0-14 10-24 22-24s22 10 22 24c0 12-11 22-22 28C37 79 26 69 26 57Z' fill='%23fbc02d'/%3E%3Ccircle cx='48' cy='57' r='9' fill='%231e60a5'/%3E%3C/svg%3E"
+                    alt="Ikon filter UT-Daerah"
+                >
+            </div>
+            <div class="filter-copy">
+                <span class="filter-label">UT-Daerah</span>
+                <span class="filter-desc">Saring berdasarkan area distribusi atau lokasi utama.</span>
+            </div>
+        </div>
+        <select id="filterRegion" class="filter-select-box">
+            <option value="">Semua UT-Daerah</option>
+            <option value="Bandung">Bandung</option>
+            <option value="Jakarta">Jakarta</option>
+            <option value="Yogyakarta">Yogyakarta</option>
+            <option value="Surabaya">Surabaya</option>
+        </select>
+    </label>
+</div>
+            </form>
+
+            <div class="table-container stock-table-wrap admin-table-wrap">
+                <table class="admin-stock-table">
+                    <thead>
+                        <tr>
+                            <th>Buku</th>
+                            <th>Kode & Edisi</th>
+                            <th>Lokasi</th>
+                            <th>Klasifikasi</th>
+                            <th>Status</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mainTableBody"></tbody>
+                </table>
+                <p id="emptyState" class="empty-state" hidden>Tidak ada data yang cocok dengan pencarian atau filter yang dipilih.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="quickStockModal" class="book-modal" hidden>
+        <div class="book-modal-backdrop" data-close-modal="quickStockModal"></div>
+        <div class="book-modal-panel admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="quickStockTitle">
+            <button type="button" class="modal-close" data-close-button="quickStockModal" aria-label="Tutup popup">×</button>
+            <div class="admin-modal-body">
+                <div class="section-head admin-modal-head">
+                    <div>
+                        <h2 id="quickStockTitle">Tambah Stok Cepat</h2>
+                        <p class="subtitle">Pilih buku lalu tambahkan stok baru atau set jumlah stok secara langsung.</p>
+                    </div>
+                </div>
+                <form id="stockAdjustForm" class="user-order-form admin-inline-form">
+                    <div class="input-group">
+                        <label for="adjustBook">Pilih Buku</label>
+                        <select id="adjustBook" required></select>
+                    </div>
+                    <div class="user-form-grid admin-mini-grid">
+                        <div class="input-group">
+                            <label for="adjustAmount">Jumlah</label>
+                            <input type="number" id="adjustAmount" min="1" value="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="adjustMode">Mode</label>
+                            <select id="adjustMode">
+                                <option value="add">Tambah Stok</option>
+                                <option value="set">Set Stok Baru</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button type="submit" class="btn-search order-submit">Simpan Stok</button>
+                        <p id="stockAdjustFeedback" class="order-feedback"></p>
+                    </div>
                 </form>
-
-<div class="input-group">
-
-    <select v-model="selectedUPBJJ">
-
-        <option value="">Semua UPBJJ</option>
-
-        <option v-for="u in upbjjList"
-                :key="u">
-
-            {{ u }}
-
-        </option>
-
-    </select>
-
-</div>
-
-<div class="input-group" v-if="selectedUPBJJ">
-
-    <select v-model="selectedKategori">
-
-        <option value="">Semua Kategori</option>
-
-        <option v-for="k in kategoriList"
-                :key="k">
-
-            {{ k }}
-
-        </option>
-
-    </select>
-
-</div>
-
-        <!-- Tabel Stok Lengkap sesuai Screenshot (4258) -->
-        <div class="table-container" style="margin-top: 30px;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Sampul</th>
-                        <th>Kode Lokasi</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Jenis</th>
-                        <th>Edisi</th>
-                        <th>Stok</th>
-                    </tr>
-                </thead>
-                <tbody id="mainTableBody">
-                    <tr>
-                        <td>1</td>
-                        <td><img src="img/pengantar_komunikasi.jpg" class="img-table" 
-                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku1'"></td>
-                        <td>0TMP01</td>
-                        <td>ASIP4301</td>
-                        <td>Pengantar Ilmu Komunikasi</td>
-                        <td>BMP</td>
-                        <td>2</td>
-                        <td>548</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><img src="img/manajemen_keuangan.jpg" class="img-table" 
-                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku2'"></td>
-                        <td>0JKT01</td>
-                        <td>EKMA4216</td>
-                        <td>Manajemen Keuangan</td>
-                        <td>BMP</td>
-                        <td>3</td>
-                        <td>392</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><img src="img/kepemimpinan.jpg" class="img-table" 
-                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku3'"></td>
-                        <td>0SBY02</td>
-                        <td>EKMA4310</td>
-                        <td>Kepemimpinan</td>
-                        <td>BMP</td>
-                        <td>1</td>
-                        <td>278</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><img src="img/mikrobiologi.jpg" class="img-table" 
-                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku4'"></td>
-                        <td>0MLG01</td>
-                        <td>BIOL4211</td>
-                        <td>Mikrobiologi Dasar</td>
-                        <td>BMP</td>
-                        <td>2</td>
-                        <td>165</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><img src="img/paud_perkembangan.jpeg" class="img-table" 
-                            onerror="this.src='https://via.placeholder.com/40x60?text=Buku5'"></td>
-                        <td>0UPBJJBDG</td>
-                        <td>PAUD4401</td>
-                        <td>Perkembangan Anak Usia Dini</td>
-                        <td>BMP</td>
-                        <td>4</td>
-                        <td>204</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 
-<div class="add-stock-container">
-    <h3>Tambah Stok Bahan Ajar</h3>
-    <!-- Area Upload Foto -->
-    <div class="upload-area">
-        <p>Klik atau Seret Foto Sampul ke Sini</p>
-        <input type="file" id="upload-foto" hidden>
-    </div>
-    <!-- Form Input Sesuai Gambar -->
-            <div class="form-stok">
-                <div class="input-row">
-                    <input type="text" placeholder="Kode Lokasi">
-                    <input type="text" placeholder="Kode Barang">
-                    <input type="text" placeholder="Nama Barang">
-                    <input type="text" placeholder="Jenis">
-                    <input type="text" placeholder="Edisi">
+    <div id="bookFormModal" class="book-modal" hidden>
+        <div class="book-modal-backdrop" data-close-modal="bookFormModal"></div>
+        <div class="book-modal-panel admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="bookFormTitle">
+            <button type="button" class="modal-close" data-close-button="bookFormModal" aria-label="Tutup popup">×</button>
+            <div class="admin-modal-body">
+                <div class="section-head admin-modal-head">
+                    <div>
+                        <h2 id="bookFormTitle">Tambah Buku Baru</h2>
+                        <p id="bookFormSubtitle" class="subtitle">Lengkapi data buku baru agar langsung masuk ke katalog admin dan user.</p>
+                    </div>
                 </div>
-                <div class="input-row" style="margin-top: 15px;">
-                    <input type="number" placeholder="Stok">
-                    <button class="btn-tambah">Tambah</button>
-                </div>
+                <form id="bookForm" class="user-order-form">
+                    <div class="input-group">
+                        <label for="bookFormMode">Mode Form</label>
+                        <input type="text" id="bookFormMode" readonly value="Tambah Buku">
+                    </div>
+                    <div class="user-form-grid">
+                        <div class="input-group">
+                            <label for="formKodeBarang">Kode Barang</label>
+                            <input type="text" id="formKodeBarang" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formNamaBarang">Nama Barang</label>
+                            <input type="text" id="formNamaBarang" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formKodeLokasi">Kode Lokasi</label>
+                            <input type="text" id="formKodeLokasi" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formJenisBarang">Jenis</label>
+                            <input type="text" id="formJenisBarang" value="BMP" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formEdisi">Edisi</label>
+                            <input type="text" id="formEdisi" value="1" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formStok">Stok</label>
+                            <input type="number" id="formStok" min="0" value="0" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formKategori">Kategori</label>
+                            <select id="formKategori">
+                                <option value="Komunikasi">Komunikasi</option>
+                                <option value="Manajemen">Manajemen</option>
+                                <option value="Kepemimpinan">Kepemimpinan</option>
+                                <option value="Sains">Sains</option>
+                                <option value="PAUD">PAUD</option>
+                                <option value="Umum">Umum</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="formRegion">UT-Daerah</label>
+                            <input type="text" id="formRegion" placeholder="Contoh: Bandung" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="formCover">Path Gambar</label>
+                            <input type="text" id="formCover" placeholder="img/nama-file.jpg" required>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button type="submit" class="btn-search order-submit" id="bookFormSubmit">Simpan Buku</button>
+                        <p id="bookFormFeedback" class="order-feedback"></p>
+                    </div>
+                </form>
             </div>
+        </div>
+    </div>
 
+    <script src="js/data.js"></script>
+    <script src="js/inventoryStore.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchForm = document.getElementById('inventoryForm');
+            const searchInput = document.getElementById('globalSearch');
+            const categoryFilter = document.getElementById('filterCategory');
+            const regionFilter = document.getElementById('filterRegion');
+            const tableBody = document.getElementById('mainTableBody');
+            const emptyState = document.getElementById('emptyState');
+            const adjustBook = document.getElementById('adjustBook');
+            const stockAdjustForm = document.getElementById('stockAdjustForm');
+            const stockAdjustFeedback = document.getElementById('stockAdjustFeedback');
+            const bookForm = document.getElementById('bookForm');
+            const bookFormFeedback = document.getElementById('bookFormFeedback');
+            const openAddBookBtn = document.getElementById('openAddBookBtn');
+            const openQuickStockBtn = document.getElementById('openQuickStockBtn');
+            const quickStockModal = document.getElementById('quickStockModal');
+            const bookFormModal = document.getElementById('bookFormModal');
+            const counts = {
+                red: document.getElementById('countRed'),
+                yellow: document.getElementById('countYellow'),
+                green: document.getElementById('countGreen')
+            };
 
-<!-- FILTER STOK-->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchForm = document.getElementById('inventoryForm');
-        const tableBody = document.getElementById('mainTableBody');
+            let formMode = 'create';
+            let editingCode = '';
 
-    // Cek apakah elemen form dan tabel ada di halaman ini
-    if (searchForm && tableBody) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            function openModal(id) {
+                document.getElementById(id).hidden = false;
+                document.body.classList.add('modal-open');
+            }
 
-            // 1. Ambil nilai dari semua kotak input
-            const fLoc = document.getElementById('locCode').value.toLowerCase().trim();
-            const fItem = document.getElementById('itemCode').value.toLowerCase().trim();
-            const fName = document.getElementById('itemName').value.toLowerCase().trim();
-            const fType = document.getElementById('itemType').value.toLowerCase().trim();
-            const fEdit = document.getElementById('edition').value.toLowerCase().trim();
-
-            // 2. Ambil semua baris (tr) yang ada di dalam tbody
-            const rows = tableBody.getElementsByTagName('tr');
-
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i];
-                const cells = row.getElementsByTagName('td');
-                
-                // Pastikan baris memiliki data (bukan baris kosong)
-                if (cells.length >= 7) {
-                    // Ambil teks dari masing-masing kolom (sesuai urutan di tabel Anda)
-                    const txtLoc  = cells[2].textContent.toLowerCase().trim(); // Kolom Kode Lokasi
-                    const txtItem = cells[3].textContent.toLowerCase().trim(); // Kolom Kode Barang
-                    const txtName = cells[4].textContent.toLowerCase().trim(); // Kolom Nama Barang
-                    const txtType = cells[5].textContent.toLowerCase().trim(); // Kolom Jenis
-                    const txtEdit = cells[6].textContent.toLowerCase().trim(); // Kolom Edisi
-
-                    // 3. Logika Filter: Jika input kosong, dianggap cocok. 
-                    // Jika diisi, harus mengandung kata tersebut (includes).
-                    const isMatch = (fLoc === ""  || txtLoc.includes(fLoc)) &&
-                                    (fItem === "" || txtItem.includes(fItem)) &&
-                                    (fName === "" || txtName.includes(fName)) &&
-                                    (fType === "" || txtType.includes(fType)) &&
-                                    (fEdit === "" || txtEdit.includes(fEdit));
-
-                    // 4. Tampilkan jika cocok, sembunyikan jika tidak
-                    if (isMatch) {
-                        row.style.display = ""; 
-                    } else {
-                        row.style.display = "none";
-                    }
+            function closeModal(id) {
+                document.getElementById(id).hidden = true;
+                if (!Array.from(document.querySelectorAll('.book-modal')).some(function (modal) { return !modal.hidden; })) {
+                    document.body.classList.remove('modal-open');
                 }
             }
+
+            function renderFilterOptions() {
+                const books = inventoryStore.getInventory();
+                const categoryValue = categoryFilter.value;
+                const regionValue = regionFilter.value;
+                const categories = Array.from(new Set(books.map(function (book) {
+                    return book.kategori || 'Umum';
+                }))).sort();
+                const regions = Array.from(new Set(books.map(function (book) {
+                    return book.region || '';
+                }).filter(Boolean))).sort();
+
+                categoryFilter.innerHTML = '<option value="">Semua kategori</option>' + categories.map(function (item) {
+                    const selected = item === categoryValue ? ' selected' : '';
+                    return '<option value="' + item + '"' + selected + '>' + item + '</option>';
+                }).join('');
+
+                regionFilter.innerHTML = '<option value="">Semua UT-Daerah</option>' + regions.map(function (item) {
+                    const selected = item === regionValue ? ' selected' : '';
+                    return '<option value="' + item + '"' + selected + '>' + item + '</option>';
+                }).join('');
+            }
+
+            function renderAdjustOptions(selectedCode) {
+                const books = inventoryStore.getInventory();
+                adjustBook.innerHTML = books.map(function (book) {
+                    const selected = selectedCode === book.kodeBarang ? ' selected' : '';
+                    return '<option value="' + book.kodeBarang + '"' + selected + '>' + book.kodeBarang + ' - ' + book.namaBarang + '</option>';
+                }).join('');
+            }
+
+            function resetBookForm() {
+                formMode = 'create';
+                editingCode = '';
+                document.getElementById('bookFormTitle').textContent = 'Tambah Buku Baru';
+                document.getElementById('bookFormSubtitle').textContent = 'Lengkapi data buku baru agar langsung masuk ke katalog admin dan user.';
+                document.getElementById('bookFormMode').value = 'Tambah Buku';
+                document.getElementById('bookFormSubmit').textContent = 'Simpan Buku';
+                bookForm.reset();
+                document.getElementById('formJenisBarang').value = 'BMP';
+                document.getElementById('formEdisi').value = '1';
+                document.getElementById('formStok').value = '0';
+                document.getElementById('formKodeBarang').readOnly = false;
+                bookFormFeedback.textContent = '';
+            }
+
+            function fillBookForm(book) {
+                formMode = 'edit';
+                editingCode = book.kodeBarang;
+                document.getElementById('bookFormTitle').textContent = 'Edit Data Buku';
+                document.getElementById('bookFormSubtitle').textContent = 'Perbarui data buku yang dipilih tanpa pindah ke panel terpisah.';
+                document.getElementById('bookFormMode').value = 'Edit Buku';
+                document.getElementById('bookFormSubmit').textContent = 'Update Buku';
+                document.getElementById('formKodeBarang').value = book.kodeBarang;
+                document.getElementById('formNamaBarang').value = book.namaBarang;
+                document.getElementById('formKodeLokasi').value = book.kodeLokasi;
+                document.getElementById('formJenisBarang').value = book.jenisBarang;
+                document.getElementById('formEdisi').value = book.edisi;
+                document.getElementById('formKategori').value = book.kategori || 'Umum';
+                document.getElementById('formRegion').value = book.region || '';
+                document.getElementById('formStok').value = book.stok;
+                document.getElementById('formCover').value = book.cover;
+                document.getElementById('formKodeBarang').readOnly = true;
+                bookFormFeedback.textContent = '';
+            }
+
+            function renderTable() {
+                const books = inventoryStore.getInventory();
+                const keyword = searchInput.value.toLowerCase().trim();
+                const selectedCategory = categoryFilter.value.toLowerCase();
+                const selectedRegion = regionFilter.value.toLowerCase();
+                const summary = { red: 0, yellow: 0, green: 0 };
+
+                books.forEach(function (book) {
+                    summary[inventoryStore.getStockStatus(book.stok).key] += 1;
+                });
+
+                counts.red.textContent = String(summary.red);
+                counts.yellow.textContent = String(summary.yellow);
+                counts.green.textContent = String(summary.green);
+                renderFilterOptions();
+
+                const filtered = books.filter(function (book) {
+                    const rowText = [
+                        book.kodeLokasi,
+                        book.kodeBarang,
+                        book.namaBarang,
+                        book.jenisBarang,
+                        book.edisi,
+                        book.kategori,
+                        book.region
+                    ].join(' ').toLowerCase();
+
+                    return (!keyword || rowText.includes(keyword)) &&
+                        (!selectedCategory || (book.kategori || '').toLowerCase() === selectedCategory) &&
+                        (!selectedRegion || (book.region || '').toLowerCase() === selectedRegion);
+                });
+
+                tableBody.innerHTML = filtered.map(function (book) {
+                    const status = inventoryStore.getStockStatus(book.stok);
+
+                    return '' +
+                        '<tr>' +
+                            '<td>' +
+                                '<div class="admin-book-cell">' +
+                                    '<img src="' + book.cover + '" class="img-table" alt="' + book.namaBarang + '">' +
+                                    '<div class="admin-book-copy">' +
+                                        '<strong>' + book.namaBarang + '</strong>' +
+                                        '<span>' + book.jenisBarang + '</span>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="admin-inline-stack">' +
+                                    '<strong>' + book.kodeBarang + '</strong>' +
+                                    '<span>Edisi ' + book.edisi + '</span>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="admin-inline-stack">' +
+                                    '<strong>' + book.kodeLokasi + '</strong>' +
+                                    '<span>' + (book.region || '-') + '</span>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="admin-inline-stack">' +
+                                    '<strong>' + (book.kategori || 'Umum') + '</strong>' +
+                                    '<span>' + book.jenisBarang + '</span>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td><span class="stock-indicator stock-indicator-' + status.key + '"><span class="stock-indicator-icon">' + status.icon + '</span><span>' + status.shortLabel + '</span></span></td>' +
+                            '<td><strong class="admin-stock-number">' + book.stok + '</strong></td>' +
+                            '<td>' +
+                                '<div class="table-action-group">' +
+                                    '<button type="button" class="btn-secondary btn-table-action" data-edit="' + book.kodeBarang + '">Edit</button>' +
+                                    '<button type="button" class="btn-secondary btn-table-action" data-stock="' + book.kodeBarang + '">Stok</button>' +
+                                    '<button type="button" class="btn-danger btn-table-action" data-delete="' + book.kodeBarang + '">Hapus</button>' +
+                                '</div>' +
+                            '</td>' +
+                        '</tr>';
+                }).join('');
+
+                emptyState.hidden = filtered.length !== 0;
+                renderAdjustOptions(adjustBook.value);
+            }
+
+            searchForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                renderTable();
+            });
+
+            searchInput.addEventListener('input', renderTable);
+            categoryFilter.addEventListener('change', renderTable);
+            regionFilter.addEventListener('change', renderTable);
+
+            openAddBookBtn.addEventListener('click', function () {
+                resetBookForm();
+                openModal('bookFormModal');
+            });
+
+            openQuickStockBtn.addEventListener('click', function () {
+                stockAdjustFeedback.textContent = '';
+                openModal('quickStockModal');
+            });
+
+            document.querySelectorAll('[data-close-button]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    closeModal(button.getAttribute('data-close-button'));
+                });
+            });
+
+            document.querySelectorAll('[data-close-modal]').forEach(function (backdrop) {
+                backdrop.addEventListener('click', function () {
+                    closeModal(backdrop.getAttribute('data-close-modal'));
+                });
+            });
+
+            stockAdjustForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const kodeBarang = adjustBook.value;
+                const amount = Number(document.getElementById('adjustAmount').value);
+                const mode = document.getElementById('adjustMode').value;
+                const book = inventoryStore.findBook(kodeBarang);
+
+                if (!book) {
+                    return;
+                }
+
+                book.stok = mode === 'set' ? amount : (Number(book.stok) + amount);
+                inventoryStore.upsertBook(book);
+                stockAdjustFeedback.textContent = 'Stok untuk ' + book.kodeBarang + ' berhasil diperbarui.';
+                renderTable();
+            });
+
+            bookForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const kodeBarang = document.getElementById('formKodeBarang').value.trim();
+
+                if (formMode === 'create' && inventoryStore.findBook(kodeBarang)) {
+                    bookFormFeedback.textContent = 'Kode barang sudah ada. Gunakan kode yang berbeda.';
+                    return;
+                }
+
+                const updated = inventoryStore.upsertBook({
+                    kodeBarang: kodeBarang,
+                    namaBarang: document.getElementById('formNamaBarang').value.trim(),
+                    kodeLokasi: document.getElementById('formKodeLokasi').value.trim(),
+                    jenisBarang: document.getElementById('formJenisBarang').value.trim(),
+                    edisi: document.getElementById('formEdisi').value.trim(),
+                    kategori: document.getElementById('formKategori').value,
+                    region: document.getElementById('formRegion').value.trim(),
+                    stok: Number(document.getElementById('formStok').value),
+                    cover: document.getElementById('formCover').value.trim()
+                });
+
+                bookFormFeedback.textContent = formMode === 'create'
+                    ? 'Buku baru ' + updated.kodeBarang + ' berhasil ditambahkan.'
+                    : 'Data buku ' + updated.kodeBarang + ' berhasil diperbarui.';
+
+                renderTable();
+
+                if (formMode === 'create') {
+                    resetBookForm();
+                }
+            });
+
+            tableBody.addEventListener('click', function (event) {
+                const editCode = event.target.getAttribute('data-edit');
+                const deleteCode = event.target.getAttribute('data-delete');
+                const stockCode = event.target.getAttribute('data-stock');
+
+                if (editCode) {
+                    const book = inventoryStore.findBook(editCode);
+                    if (book) {
+                        fillBookForm(book);
+                        openModal('bookFormModal');
+                    }
+                }
+
+                if (stockCode) {
+                    adjustBook.value = stockCode;
+                    stockAdjustFeedback.textContent = '';
+                    openModal('quickStockModal');
+                }
+
+                if (deleteCode) {
+                    const confirmed = window.confirm('Hapus buku ' + deleteCode + ' dari katalog admin?');
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    inventoryStore.deleteBook(deleteCode);
+                    renderTable();
+                }
+            });
+
+            renderTable();
+            resetBookForm();
         });
-    } else {
-        console.error("Elemen 'inventoryForm' atau 'mainTableBody' tidak ditemukan!");
-    }
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="js/dataBahanAjar.js"></script>
-<script src="js/stok-app.js"></script>
-
+    </script>
 </body>
 </html>
