@@ -137,6 +137,34 @@
                     return;
                 }
 
+                // ==========================================================================
+                // INTEGRASI DATA: SIMPAN KE LOCALSTORAGE UNTUK TRACKING DO
+                // ==========================================================================
+                let customTracking = JSON.parse(localStorage.getItem('custom_tracking')) || {};
+                
+                // Ambil tanggal hari ini format lokal YYYY-MM-DD
+                const tglHariIni = new Date().toISOString().split('T')[0];
+                const jamMenitDetik = new Date().toTimeString().split(' ')[0];
+
+                // Daftarkan pesanan baru ke object database tracking bersama
+                customTracking[order.nomor] = {
+                    nama: document.getElementById('orderNama').value.trim(),
+                    status: "Dalam Perjalanan",
+                    ekspedisi: document.getElementById('orderCourier').value,
+                    tanggalKirim: tglHariIni,
+                    paket: orderBook.value,
+                    bayar: "Rp " + (50000 * parseInt(document.getElementById('orderQty').value)).toLocaleString('id-ID'), 
+                    persentase: "30%",
+                    riwayat: [
+                        `<b>${tglHariIni} ${jamMenitDetik}</b><br>Pesanan berhasil dibuat oleh mahasiswa. Menunggu konfirmasi Gudang Pusat UT.`,
+                        `<b>${tglHariIni} ${jamMenitDetik}</b><br>Bahan ajar siap dipacking oleh Admin Logistik.`
+                    ]
+                };
+
+                // Kunci data ke dalam localStorage browser
+                localStorage.setItem('custom_tracking', JSON.stringify(customTracking));
+                // ==========================================================================
+
                 latestOrderStat.textContent = order.nomor;
                 orderFeedback.innerHTML = 'Pesanan berhasil dibuat dengan nomor <strong>' + order.nomor + '</strong>. <a href="user-tracking.html?order=' + encodeURIComponent(order.nomor) + '">Lihat tracking</a>.';
                 orderForm.reset();

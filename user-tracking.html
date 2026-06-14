@@ -27,7 +27,6 @@
     </nav>
 
     <div class="dashboard-container">
-        <!-- Kotak Pencarian Tracking -->
         <div class="content-card">
             <h1>Tracking Delivery Order</h1>
             <p class="subtitle">Masukkan Nomor Delivery Order untuk melihat 
@@ -45,7 +44,6 @@
             </div>
         </div>
 
-        <!-- Area Hasil Tracking (Awalnya Tersembunyi) -->
         <div id="hasilTracking" class="content-card result-card" style="display: none; 
         border-left: 5px solid #1e60a5;">
             <h2>Hasil Tracking</h2>
@@ -55,11 +53,9 @@
                 <p><strong>Status Pengiriman:</strong> <span id="resStatus" class="text-status"></span></p>
             </div>
 
-            <!-- Progress Bar Mewah -->
             <div class="progress-container">
-    <!-- Pastikan class-nya adalah progress-bar-fill agar sinkron dengan JS -->
-    <div class="progress-bar-fill" id="progressBar">70%</div>
-</div>
+                <div class="progress-bar-fill" id="progressBar">70%</div>
+            </div>
 
             <div class="detail-grid">
                 <p><strong>Ekspedisi:</strong> <span id="resEkspedisi"></span></p>
@@ -71,16 +67,14 @@
             <hr>
             <h3>Riwayat Perjalanan</h3>
             <ul class="timeline" id="riwayatList">
-                <!-- Data Riwayat Akan Masuk Sini -->
-            </ul>
+                </ul>
         </div>
     </div>
 
 
-<!-- FUNGSI TRACKING -->
 <script>
     // 1. Definisikan Database Lokal 
-    const dataTracking = {
+    const dataTrackingBawaan = {
         "2023001234": {
             nama: "Rina Wulandari",
             status: "Dalam Perjalanan",
@@ -119,10 +113,16 @@
         }
 
         function cariTracking() {
-            const noDO = document.getElementById('nomorDO').value;
+            const noDO = document.getElementById('nomorDO').value.trim();
             const resultArea = document.getElementById('hasilTracking');
 
-        // Cek apakah nomor DO ada di database kita
+            // Ambil data kiriman baru dari localStorage jika ada
+            const customTracking = JSON.parse(localStorage.getItem('custom_tracking')) || {};
+            
+            // Gabungkan database bawaan hardcode dengan database dinamis localStorage
+            const dataTracking = Object.assign({}, dataTrackingBawaan, customTracking);
+
+        // Cek apakah nomor DO ada di database gabungan kita
         if (dataTracking[noDO]) {
             const data = dataTracking[noDO];
 
@@ -160,6 +160,16 @@
             resultArea.style.display = 'none';
         }
     }
+
+    // Fungsi otomatis mendeteksi jika dilempar parameter URL dari link klik "Lihat Tracking"
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNum = urlParams.get('order');
+        if (orderNum) {
+            document.getElementById('nomorDO').value = orderNum;
+            cariTracking();
+        }
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 

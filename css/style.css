@@ -2046,17 +2046,6 @@
     text-align: left;        /* Memastikan text di dalamnya rata kiri */
 }
 
-/* Jika Anda ingin ikon dan teks tetap bersebelahan (horizontal) tetapi rapat kiri, gunakan ini: */
-/* .filter-header-content {
-    display: flex;
-    flex-direction: row;     
-    align-items: center;     
-    justify-content: flex-start; 
-    gap: 16px;
-    width: 100%;
-    text-align: left;
-}
-*/
 
 /* Mengatur pembungkus teks judul & deskripsi */
 .filter-copy {
@@ -2211,3 +2200,80 @@
 .catalog-card .catalog-actions {
     margin-top: 0 !important;      /* Mengunci tombol Detail & Pesan di bawah */
 }
+
+
+
+
+/*TUGAS 3*/
+
+/* ==========================================================================
+    PENYESUAIAN TAMPILAN NOMOR DO (HERO STAT)
+   ========================================================================== */
+
+.user-hero-stat {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px 30px !important; /* Padding diperlebar sedikit */
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    min-width: 280px !important; /* Wadah diperlebar agar angka besar tidak sesak */
+}
+
+/* Mengatur Ukuran Angka & Huruf DO agar Lebih Besar & Selaras */
+.user-hero-stat strong, 
+#latestOrderStat {
+    display: block !important;
+    /* Menggunakan font sistem yang sama dengan teks "Selamat Pagi" */
+    font-family: inherit !important; 
+    font-size: 32px !important;    /* Ukuran diperbesar agar lebih tegas */
+    font-weight: 800 !important;    /* Ketebalan ekstra (Extra Bold) */
+    color: #ffffff !important;
+    line-height: 1 !important;
+    letter-spacing: 1px !important; /* Memberi sedikit jarak antar karakter */
+    margin-bottom: 8px !important;
+}
+
+/* Menyelaraskan Teks Keterangan di Bawahnya */
+.user-hero-stat span {
+    display: block !important;
+    font-family: inherit !important;
+    font-size: 14px !important;     /* Sedikit lebih besar agar terbaca jelas */
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+
+/* ==========================================================================
+    PERBAIKAN FILTER: MENGETENGAHKAN ICON SECARA VERTIKAL
+   ========================================================================== */
+
+/* 1. Memastikan seluruh komponen utama (ikon dan teks) sejajar vertikal di tengah */
+.filter-main-content {
+    display: flex;
+    align-items: center;    /* KUNCI UTAMA: Mengetengahkan ikon dan teks secara vertikal */
+    gap: 16px;              /* Memberikan jarak horizontal yang rapi antara ikon dan teks */
+    width: 100%;
+}
+
+/* 2. Memastikan ikon berada di tengah kontainer kotaknya */
+.filter-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;         /* Mencegah kotak ikon gepeng atau berubah ukuran */
+    margin-bottom: 0;       /* Diubah ke 0 karena layout menyamping, bukan ke bawah */
+}
+
+/* 3. Menjaga ukuran gambar SVG di dalam kotak agar pas */
+.filter-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;    /* Memastikan gambar SVG tidak distorsi dan proporsional */
+}
+
+
